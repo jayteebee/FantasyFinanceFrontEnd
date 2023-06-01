@@ -1,6 +1,6 @@
 import { getAllUserInfo, createUser, updateUserInfo, deleteUser } from "./API/userAPI";
 import { createHolding, getAllUserHoldings, getSpecificUserHolding, deleteHolding } from "./API/holdingAPI";
-import { getAllUserWatchlists, getSpecificStockFromWatchlist, getSpecificUserWatchlist, getStocksFromWatchlist } from "./API/watchlistAPI";
+import { addStockToWatchlist, createWatchlist, deleteWatchlist, getAllUserWatchlists, getSpecificStockFromWatchlist, getSpecificUserWatchlist, getStocksFromWatchlist } from "./API/watchlistAPI";
 import { getAllIndustries, getSpecificIndustry, getStockFromIndustry } from "./API/industryAPI";
 import { balanceSheet, cashFlow, earnings, incomeStatement, news, overview } from "./API/AlphaVantage/fundamentalDataAPI";
 import { tickerSearch, timeSeriesIntraday } from "./API/AlphaVantage/coreDataAPI";
@@ -32,6 +32,9 @@ function App() {
   // console.log(getSpecificUserWatchlist(1,1)) - working!
   // console.log(getStocksFromWatchlist(1,1)) - working!
   // console.log(getSpecificStockFromWatchlist(1,1,"NVDA")) - working!
+  // console.log(createWatchlist(1, {name: "Crazy Commodities", stock_name: "Nvidia", stock_symbol: "NVDA"})) - working!
+  // console.log(addStockToWatchlist(1, 1, "NVDA")) - working!
+// console.log(deleteWatchlist(1,2)) - working!
 
   // ** industryAPI **
 
