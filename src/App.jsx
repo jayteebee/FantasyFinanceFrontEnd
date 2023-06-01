@@ -1,4 +1,4 @@
-import { getAllUserInfo, createUser } from "./API/userAPI";
+import { getAllUserInfo, createUser, updateUserInfo } from "./API/userAPI";
 import { getAllUserHoldings, getSpecificUserHolding } from "./API/holdingAPI";
 import { getAllUserWatchlists, getSpecificStockFromWatchlist, getSpecificUserWatchlist, getStocksFromWatchlist } from "./API/watchlistAPI";
 import { getAllIndustries, getSpecificIndustry, getStockFromIndustry } from "./API/industryAPI";
@@ -10,6 +10,8 @@ function App() {
   // ** userAPI **
 
   // console.log(getAllUserInfo(1)) - working!
+  // console.log(updateUserInfo(1, { age: 22 })) - working!
+
   // console.log(createUser()) - not working!
 
   //  ** holdingAPI **
@@ -43,6 +45,7 @@ function App() {
 
   // console.log(timeSeriesIntraday(1, "TSLA")) - working!
   // console.log(tickerSearch(1, "tesla")) - working!
+
   return (
     <div>
     <h1>Bonjour</h1>
