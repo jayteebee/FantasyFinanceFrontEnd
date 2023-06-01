@@ -3,19 +3,19 @@ import { getAllIndustries } from "../../API/industryAPI";
 import IndustryList from "./IndustryList";
 
 const FetchAllIndustries = () => {
-const [industries, setIndustries] = useState([]);
+const [industries, setIndustries] = useState(null);
 
 useEffect(() => {
-    const fetchData = async () => {
-        const data = await getAllIndustries();
-        setIndustries(data);
-    }
-    fetchData();
+    getAllIndustries()
+    .then(data => {
+       setIndustries(data);
+    })
+    .catch(err => console.log("API Call Failed", err));
 }, []);
 
 
   return <IndustryList industries={industries} />
 }
 
-export default FetchAllIndustries
+export default FetchAllIndustries;
 

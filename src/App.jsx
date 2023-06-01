@@ -4,6 +4,8 @@ import { addStockToWatchlist, createWatchlist, deleteWatchlist, getAllUserWatchl
 import { getAllIndustries, getSpecificIndustry, getStockFromIndustry } from "./API/industryAPI";
 import { balanceSheet, cashFlow, earnings, incomeStatement, news, overview } from "./API/AlphaVantage/fundamentalDataAPI";
 import { tickerSearch, timeSeriesIntraday } from "./API/AlphaVantage/coreDataAPI";
+import FetchAllIndustries from "./Components/Industry/FetchAllIndustries";
+import FetchSpecificIndustry from "./Components/Industry/FetchSpecificIndustry";
 
 function App() {
 
@@ -59,7 +61,8 @@ function App() {
   return (
     <div>
     <h1>Bonjour</h1>
-    
+     <FetchAllIndustries /> 
+     <FetchSpecificIndustry />
     </div>
   );
 }
