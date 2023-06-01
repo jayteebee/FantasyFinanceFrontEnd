@@ -18,3 +18,10 @@ export const createHolding = async (userID, holdingData) => {
     const response = await axiosInstance.post(`/user/${userID}/holdings`, holdingData);
     return response.data;
 }
+
+// ** DELETE REQUESTS ** 
+
+export const deleteHolding = async (userID, holdingID) => {
+    const response = await axiosInstance.delete(`/user/${userID}/holdings/${holdingID}`);
+    return response.data;
+}

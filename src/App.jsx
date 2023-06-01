@@ -1,5 +1,5 @@
 import { getAllUserInfo, createUser, updateUserInfo, deleteUser } from "./API/userAPI";
-import { createHolding, getAllUserHoldings, getSpecificUserHolding } from "./API/holdingAPI";
+import { createHolding, getAllUserHoldings, getSpecificUserHolding, deleteHolding } from "./API/holdingAPI";
 import { getAllUserWatchlists, getSpecificStockFromWatchlist, getSpecificUserWatchlist, getStocksFromWatchlist } from "./API/watchlistAPI";
 import { getAllIndustries, getSpecificIndustry, getStockFromIndustry } from "./API/industryAPI";
 import { balanceSheet, cashFlow, earnings, incomeStatement, news, overview } from "./API/AlphaVantage/fundamentalDataAPI";
@@ -12,6 +12,7 @@ function App() {
   // console.log(getAllUserInfo(1)) - working!
   // console.log(updateUserInfo(1, { age: 22 })) - working!
 
+  // Not working!
   // console.log(createUser({name: "JethroTB", age: 22, email: "apollo@gmail.com", trading_style: "cautios", experience_level: "intermediate", balance: 1000000})) 
   // console.log(deleteUser(2))
 
@@ -20,8 +21,10 @@ function App() {
 
   // console.log(getAllUserHoldings(1)) - working!
   // console.log(getSpecificUserHolding(1, 1)) - working!
-
   // console.log(createHolding(1, {quantity: 20, purchase_price: 22, stock_id: 50})) - working!
+ 
+  // Not working!
+  // console.log(deleteHolding(1,9))
 
   // ** watchlistAPI **
 
