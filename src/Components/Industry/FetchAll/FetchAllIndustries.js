@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import { getAllIndustries } from "../../API/industryAPI";
+import { getAllIndustries } from "../../../API/industryAPI";
 import IndustryList from "./IndustryList";
-import FetchSpecificIndustry from "./FetchSpecificIndustry";
+import FetchSpecificIndustry from "../FetchSpecific/FetchSpecificIndustry";
 
 const FetchAllIndustries = () => {
 const [industries, setIndustries] = useState(null);

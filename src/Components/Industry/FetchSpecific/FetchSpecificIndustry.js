@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import { getSpecificIndustry } from "../../API/industryAPI";
+import { getSpecificIndustry } from "../../../API/industryAPI";
 import SpecificIndustry from "./SpecificIndustry";
 
 const FetchSpecificIndustries = ({industries}) => {
-  console.log("industries props", industries);
 const [specificIndustry, setSpecificIndustry] = useState(null);
 const [input, setInput] = useState("");
 
@@ -20,7 +19,6 @@ const handleSubmit = (e) => {
     }
 
     const industry = industries.find(industry => industry.name === input);
-    console.log("inside",industry);
     if (industry) {
       getSpecificIndustry(industry.id)
       .then(data => {
