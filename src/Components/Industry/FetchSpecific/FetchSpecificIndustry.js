@@ -33,7 +33,7 @@ const handleSubmit = (e) => {
 
   return(
     <form onSubmit={handleSubmit}>
-        <input type="text" value={input} placeholder="FSI" onChange={handleChange} />
+        <input type="text" value={input} placeholder="Search Industry" onChange={handleChange} />
         <input type="submit" value="Submit" />
         <SpecificIndustry specificIndustry={specificIndustry} />
     </form>

@@ -6,6 +6,8 @@ import { balanceSheet, cashFlow, earnings, incomeStatement, news, overview } fro
 import { tickerSearch, timeSeriesIntraday } from "./API/AlphaVantage/coreDataAPI";
 import FetchAllIndustries from "./Components/Industry/FetchAll/FetchAllIndustries";
 import FetchSpecificIndustries from "./Components/Industry/FetchSpecific/FetchSpecificIndustry";
+import { useState } from "react";
+
 
 function App() {
 
@@ -15,7 +17,7 @@ function App() {
   // console.log(updateUserInfo(1, { age: 22 })) - working!
 
   // Not working!
-  // console.log(createUser({name: "JethroTB", age: 22, email: "apollo@gmail.com", trading_style: "cautios", experience_level: "intermediate", balance: 1000000})) 
+  // console.log(createUser()) 
   // console.log(deleteUser(2))
 
 
@@ -59,10 +61,55 @@ function App() {
   // console.log(timeSeriesIntraday(1, "TSLA")) - working!
   // console.log(tickerSearch(1, "tesla")) - working!
 
+
+  const [input, setInput] = useState({
+    name: "",
+    age: "",
+    email: "",
+    password: ""
+  });
+  const [user, setUser] = useState({});
+
+  const handleChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const newUser = await createUser(input);
+    setUser(newUser);
+  } catch (err) {
+    console.log("Error creating user: ", err);
+  } finally {
+    console.log("INPUT: ",input)
+    setInput({
+      name: "",
+      age: "",
+      email: "",
+      password: ""
+    });
+  }
+
+
+}
+
   return (
     <div>
     <h1>Bonjour</h1>
      <FetchAllIndustries /> 
+
+     <form onSubmit={handleSubmit}>
+        <input type="text" value={input.name} name="name" placeholder="Username" onChange={handleChange} />
+        <input type="text" value={input.age} name="age" placeholder="Age" onChange={handleChange} />
+        <input type="text" value={input.email} name="email" placeholder="E-mail" onChange={handleChange} />
+        <input type="text" value={input.password} name="password" placeholder="Password" onChange={handleChange} />
+
+        <input type="submit" value="Submit" />
+      </form>
     </div>
   );
 }
