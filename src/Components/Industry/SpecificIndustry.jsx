@@ -1,11 +1,11 @@
-import React from 'react'
+// import React from 'react'
 
-const SpecificIndustry = ({specificIndustry}) => {
-  return (
-    <div>
-            <div key={specificIndustry.id}>{specificIndustry.name}</div>
-    </div>
-  )
-}
+// const SpecificIndustry = ({specificIndustry}) => {
+//   return (
+//     <div>
+//             <div key={specificIndustry.id}>{specificIndustry.name}</div>
+//     </div>
+//   )
+// }
 
-export default SpecificIndustry
+// export default SpecificIndustry

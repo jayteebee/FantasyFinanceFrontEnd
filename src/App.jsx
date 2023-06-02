@@ -1,7 +1,7 @@
 import { getAllUserInfo, createUser, updateUserInfo, deleteUser } from "./API/userAPI";
 import { createHolding, getAllUserHoldings, getSpecificUserHolding, deleteHolding } from "./API/holdingAPI";
 import { addStockToWatchlist, createWatchlist, deleteWatchlist, getAllUserWatchlists, getSpecificStockFromWatchlist, getSpecificUserWatchlist, getStocksFromWatchlist } from "./API/watchlistAPI";
-import { getAllIndustries, getSpecificIndustry, getStockFromIndustry } from "./API/industryAPI";
+import { getAllIndustries, getAllStocksFromIndustry, getSpecificIndustry, getStockFromIndustry } from "./API/industryAPI";
 import { balanceSheet, cashFlow, earnings, incomeStatement, news, overview } from "./API/AlphaVantage/fundamentalDataAPI";
 import { tickerSearch, timeSeriesIntraday } from "./API/AlphaVantage/coreDataAPI";
 import FetchAllIndustries from "./Components/Industry/FetchAllIndustries";
@@ -43,6 +43,7 @@ function App() {
   // console.log(getAllIndustries()) - working!
   // console.log(getSpecificIndustry(19)) - working!
   // console.log(getStockFromIndustry(1,1)) - working!
+  // console.log(getAllStocksFromIndustry(1)) - working!
 
   // ** fundamentalDataAPI **
 
@@ -62,7 +63,7 @@ function App() {
     <div>
     <h1>Bonjour</h1>
      <FetchAllIndustries /> 
-     <FetchSpecificIndustry />
+     
     </div>
   );
 }

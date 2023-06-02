@@ -10,6 +10,11 @@ export const getSpecificIndustry = async (IndustryID) => {
     return response.data;
 }
 
+export const getAllStocksFromIndustry = async (IndustryID) => {
+    const response = await axiosInstance.get(`/industry/${IndustryID}/stocks`);
+    return response.data;
+}
+
 export const getStockFromIndustry = async (IndustryID, stockID) => {
     const response = await axiosInstance.get(`/industry/${IndustryID}/${stockID}`);
     return response.data;
