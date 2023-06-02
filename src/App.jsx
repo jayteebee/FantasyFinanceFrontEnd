@@ -63,7 +63,6 @@ function App() {
     <div>
     <h1>Bonjour</h1>
      <FetchAllIndustries /> 
-     <FetchSpecificIndustries />
     </div>
   );
 }

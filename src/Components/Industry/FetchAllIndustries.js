@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { getAllIndustries } from "../../API/industryAPI";
 import IndustryList from "./IndustryList";
+import FetchSpecificIndustry from "./FetchSpecificIndustry";
 
 const FetchAllIndustries = () => {
 const [industries, setIndustries] = useState(null);
@@ -13,9 +14,12 @@ useEffect(() => {
     .catch(err => console.log("API Call Failed", err));
 }, []);
 
-
-  return <IndustryList industries={industries} />
-}
+  return (
+  <div>
+  <IndustryList industries={industries} />
+  <FetchSpecificIndustry industries={industries} />
+  </div>
+)}
 
 export default FetchAllIndustries;
 
