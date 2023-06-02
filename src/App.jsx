@@ -5,7 +5,7 @@ import { getAllIndustries, getAllStocksFromIndustry, getSpecificIndustry, getSto
 import { balanceSheet, cashFlow, earnings, incomeStatement, news, overview } from "./API/AlphaVantage/fundamentalDataAPI";
 import { tickerSearch, timeSeriesIntraday } from "./API/AlphaVantage/coreDataAPI";
 import FetchAllIndustries from "./Components/Industry/FetchAllIndustries";
-import FetchSpecificIndustry from "./Components/Industry/FetchSpecificIndustry";
+import FetchSpecificIndustries from "./Components/Industry/FetchSpecificIndustry";
 
 function App() {
 
@@ -63,7 +63,7 @@ function App() {
     <div>
     <h1>Bonjour</h1>
      <FetchAllIndustries /> 
-     
+     <FetchSpecificIndustries />
     </div>
   );
 }
