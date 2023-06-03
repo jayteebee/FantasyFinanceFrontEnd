@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const token = localStorage.getItem('token');
+const token = window.localStorage.getItem('token');
+console.log("AIWT: TOKEN: ",token);
 
 const axiosInstanceWithToken = axios.create({
     baseURL: "http://localhost:4000",
@@ -9,5 +10,6 @@ const axiosInstanceWithToken = axios.create({
         'Authorization': `Bearer ${token}`,
     },
 });
+
 
 export { axiosInstanceWithToken };

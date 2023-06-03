@@ -17,25 +17,34 @@ export const createUser = async (userData) => {
     } else {
     console.log("USER DATA: ",userData);
     const response = await axiosInstance.post("/signup",{user: userData});
-    if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
+    console.log("TOKEN: ", response.headers.authorization);
+    if (response.headers.authorization) {
+        window.localStorage.setItem("token", response.headers.authorization);
+
     }
     return response.data;
 }}
 
-// = {
-//     user: {
-//     name: "Jethro Theodore Block",
-//     age: 34,
-//     email: "spaceman003@example.com",
-//     password: "password",
-//     trading_style: "Aggressive",
-//     experience_level: "Intermediate",
-//     balance: 10000000
-//     }
-// }
+export const logIn = async (logInData) => {
+    if (!logInData) {
+        return "Please enter a valid username and password"
+    } else {
+        console.log("LOG IN DATA",logInData)
+        const response = await axiosInstance.post("/login", {user: logInData});
+        if (response.headers.authorization) {
+            // window.localStorage.getItem("token", response.headers.authorization);
+            console.log("User Logged In Successfully")
+        }
+        return response.data;
+    }
+}
 
-// console.log(createUser());
+export const currentUser = async () => {
+    const response = await axiosInstanceWithToken.get("/current_user");
+    return response.data;
+}
+
+// console.log("CURRENT USER: ",currentUser());
 
 // ** PUT REQUESTS ** 
 export const updateUserInfo = async (userID, userData) => {

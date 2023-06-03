@@ -1,4 +1,4 @@
-import { getAllUserInfo, createUser, updateUserInfo, deleteUser } from "./API/userAPI";
+import { getAllUserInfo, createUser, logIn, updateUserInfo, deleteUser } from "./API/userAPI";
 import { createHolding, getAllUserHoldings, getSpecificUserHolding, deleteHolding } from "./API/holdingAPI";
 import { addStockToWatchlist, createWatchlist, deleteWatchlist, getAllUserWatchlists, getSpecificStockFromWatchlist, getSpecificUserWatchlist, getStocksFromWatchlist } from "./API/watchlistAPI";
 import { getAllIndustries, getAllStocksFromIndustry, getSpecificIndustry, getStockFromIndustry } from "./API/industryAPI";
@@ -85,7 +85,6 @@ const handleSubmit = async (e) => {
   } catch (err) {
     console.log("Error creating user: ", err);
   } finally {
-    console.log("INPUT: ",input)
     setInput({
       name: "",
       age: "",
@@ -96,6 +95,42 @@ const handleSubmit = async (e) => {
 
 
 }
+
+
+const [input2, setInput2] = useState({
+  name: "",
+  age: "",
+  email: "",
+  password: ""
+});
+const handleChangeLI = (e) => {
+  setInput2({
+    ...input2,
+    [e.target.name]: e.target.value
+  });
+};
+
+const [user2, setUser2] = useState({});
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const newLogin = await logIn(input2);
+    setUser2(newLogin);
+  } catch (err) {
+    console.log("Error creating user: ", err);
+  } finally {
+    setInput2({
+      name: "",
+      age: "",
+      email: "",
+      password: ""
+    });
+  }
+
+
+}
+
 
   return (
     <div>
@@ -108,7 +143,17 @@ const handleSubmit = async (e) => {
         <input type="text" value={input.email} name="email" placeholder="E-mail" onChange={handleChange} />
         <input type="text" value={input.password} name="password" placeholder="Password" onChange={handleChange} />
 
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Sign Up" />
+      </form>
+
+
+      <form onSubmit={handleLogin}>
+        <input type="text" value={input2.name} name="name" placeholder="Username" onChange={handleChangeLI} />
+        <input type="text" value={input2.age} name="age" placeholder="Age" onChange={handleChangeLI} />
+        <input type="text" value={input2.email} name="email" placeholder="E-mail" onChange={handleChangeLI} />
+        <input type="text" value={input2.password} name="password" placeholder="Password" onChange={handleChangeLI} />
+
+        <input type="submit" value="Sign In" />
       </form>
     </div>
   );
