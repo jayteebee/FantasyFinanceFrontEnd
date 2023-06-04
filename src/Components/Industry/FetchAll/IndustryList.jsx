@@ -6,8 +6,7 @@ const IndustryList = ({industries}) => {
     }
 
   return (
-    // when the button gets clicked, it needs to have the same
-    // functionality as the submit button in the form
+  
     <div>
         {industries.map(industry => (
             <div key={industry.id}>
