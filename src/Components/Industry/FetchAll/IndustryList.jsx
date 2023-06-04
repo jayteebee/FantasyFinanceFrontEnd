@@ -1,6 +1,6 @@
 import React from 'react'
 
-const IndustryList = ({industries}) => {
+const IndustryList = ({industries, onIndustrySelect}) => {
     if (!industries) {
         return <div>Loading...</div>
     }
@@ -11,9 +11,10 @@ const IndustryList = ({industries}) => {
         {industries.map(industry => (
             <div key={industry.id}>
             
-              <button>
+              <button onClick={() => onIndustrySelect(industry)}>
                 {industry.name}
               </button>
+              
             </div>
             
         ))}

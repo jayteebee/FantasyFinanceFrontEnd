@@ -2,13 +2,11 @@ import React, {useState, useEffect} from 'react'
 import { getAllStocksFromIndustry } from "../../../API/industryAPI";
 import { overview } from '../../../API/AlphaVantage/fundamentalDataAPI';
 
-const FetchAllStocksFromIndustry = ({industry}) => {
+const FetchAllStocksFromIndustry = ({industry, searchSpecificIndustry}) => {
 const [industryStocks, setIndustryStocks] = useState(null);
 const [overviewData, setOverviewData] = useState(null);
 const userID = 1;
-// Need to add in the overview API call from fundamental data
-// needs to be called within the useEffect block and have userID passed as params
-// then need to assign the API data to the stock schema in the return
+
 
 useEffect(() => {
     const industryName = industry;
@@ -18,14 +16,12 @@ if (industryName) {
         setIndustryStocks(data);
     })
     .catch(err => console.log("API Call Failed", err));
-
 } else {
     console.log("No Industry Selected");
 }
-
 }, [industry]);
 
-console.log(industryStocks);
+console.log("IS",industryStocks);
 
 const overviewAPICall = async (symbol) => {
     overview(userID, symbol)
@@ -36,13 +32,14 @@ const overviewAPICall = async (symbol) => {
 }
 
   return (
-<div>
 
 <div>
+<div>
+
 {industryStocks ? industryStocks.map(stock => (
     <div key={stock.id}>
         <button onClick={() => overviewAPICall(stock.symbol)}> 
-            {stock.company_name}
+            {stock.company_name} 
                 &nbsp;|&nbsp;
             {stock.symbol}
         </button>
@@ -72,12 +69,3 @@ const overviewAPICall = async (symbol) => {
 }
 
 export default FetchAllStocksFromIndustry;
-
-
-/*
-
-
-*/
-
-
-

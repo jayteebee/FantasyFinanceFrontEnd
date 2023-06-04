@@ -1,15 +1,13 @@
 import React from 'react'
 import FetchAllStocksFromIndustry from '../FetchStocks/FetchStocks'
-const SpecificIndustry = ({specificIndustry}) => {
-  if (!specificIndustry) {
+const SpecificIndustry = ({searchSpecificIndustry}) => {
+  if (!searchSpecificIndustry) {
     return <div>Loading...</div>
 }
   return (
    <div>
-          <div key={specificIndustry.id}>{specificIndustry.name} </div>
-          <FetchAllStocksFromIndustry 
-
-          industry={specificIndustry}
+          <div key={searchSpecificIndustry.id}>{searchSpecificIndustry.name}</div>
+          <FetchAllStocksFromIndustry searchSpecificIndustry={searchSpecificIndustry}
           />
     </div>
   )

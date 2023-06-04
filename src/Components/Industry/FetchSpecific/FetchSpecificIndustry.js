@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getSpecificIndustry } from "../../../API/industryAPI";
 import SpecificIndustry from "./SpecificIndustry";
 
-const FetchSpecificIndustries = ({ industries }) => {
+const FetchSpecificIndustries = ({ industries, onIndustrySelect }) => {
   const [specificIndustry, setSpecificIndustry] = useState(null);
   const [input, setInput] = useState("");
 
@@ -18,12 +18,8 @@ const FetchSpecificIndustries = ({ industries }) => {
 
     const industry = industries.find((industry) => industry.name === input);
     if (industry) {
-      getSpecificIndustry(industry.id)
-        .then((data) => {
-          setSpecificIndustry(data);
+      onIndustrySelect(industry);
           setInput("");
-        })
-        .catch((err) => console.log("API Call Failed", err));
     } else {
       console.log(`No industry found with the name "${input}"`);
     }
@@ -40,14 +36,8 @@ const FetchSpecificIndustries = ({ industries }) => {
         />
         <input type="submit" value="Submit" />
       </form>
-      <SpecificIndustry specificIndustry={specificIndustry} />
     </div>
   );
 };
 
 export default FetchSpecificIndustries;
-
-// if the user input is equal to one of the industry names, then take the ID  of that industry and pass it as the input being sent to the API
-// if (input === industries.name) {
-//   let id = industries.id;
-// }
