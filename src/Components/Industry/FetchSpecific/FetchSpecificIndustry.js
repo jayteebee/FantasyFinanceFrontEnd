@@ -16,7 +16,7 @@ const FetchSpecificIndustries = ({ industries, onIndustrySelect }) => {
     const industry = industries.find((industry) => industry.name === input);
     if (industry) {
       onIndustrySelect(industry);
-          setInput("");
+      setInput("");
     } else {
       console.log(`No industry found with the name "${input}"`);
     }

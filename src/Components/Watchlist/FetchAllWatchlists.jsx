@@ -14,21 +14,15 @@ const FetchAllWatchlists = () => {
 
   return (
     <div>
+
     <div>FetchAllWatchlists</div> 
 {watchlists ? watchlists.map(watchlist => (
 <div key={watchlist.id}>
 <button>
 {watchlist.name}
 </button>
-{watchlist.stocks.map(stock => (
-    <div>
-    {stock.company_name} | {stock.symbol}
-
-    </div>
-))
 
 
-}
 
 </div>
 )): <p>Make Watchlists!</p>}
@@ -38,3 +32,18 @@ const FetchAllWatchlists = () => {
 }
 
 export default FetchAllWatchlists
+
+
+
+/*
+MAPPING OVER WATCHLIST TO GET ALL STOCKS
+{watchlist.stocks.map(stock => (
+    <div>
+    {stock.company_name} | {stock.symbol}
+
+    </div>
+))
+
+
+}
+*/
