@@ -10,6 +10,11 @@ export const overview = async (userID, tickerSymbol) => {
     return response.data;
 };
 
+// export const overview = async (userID, tickerSymbol) => {
+//     const response = await axiosInstance.get(`/user/1/stocks/${tickerSymbol}/overview`);
+//     return response.data;
+// };
+
 export const incomeStatement = async (userID, tickerSymbol) => {
     const response = await axiosInstance.get(`/user/${userID}/stocks/${tickerSymbol}/income_statement`);
     return response.data;

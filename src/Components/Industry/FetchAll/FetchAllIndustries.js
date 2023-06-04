@@ -16,7 +16,7 @@ useEffect(() => {
 
   return (
   <div>
-  <IndustryList industries={industries} />
+  <IndustryList industries={industries}  />
   <FetchSpecificIndustry industries={industries} />
   </div>
 )}

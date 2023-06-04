@@ -32,7 +32,7 @@ export const logIn = async (logInData) => {
         console.log("LOG IN DATA",logInData)
         const response = await axiosInstance.post("/login", {user: logInData});
         if (response.headers.authorization) {
-            // window.localStorage.getItem("token", response.headers.authorization);
+            window.localStorage.setItem("token", response.headers.authorization);
             console.log("User Logged In Successfully")
         }
         return response.data;
@@ -40,11 +40,23 @@ export const logIn = async (logInData) => {
 }
 
 export const currentUser = async () => {
-    const response = await axiosInstanceWithToken.get("/current_user");
-    return response.data;
+    const token = window.localStorage.getItem("token");
+
+    const response = await axiosInstance.get("/current_user", {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+    return response.data
 }
 
 // console.log("CURRENT USER: ",currentUser());
+
+// currentUser()
+//     .then(user => console.log("CURRENT USER: ", user))
+//     .catch(error => console.error("Error getting current user: ", error));
+
+
 
 // ** PUT REQUESTS ** 
 export const updateUserInfo = async (userID, userData) => {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const token = window.localStorage.getItem('token');
+const token = window.localStorage.getItem("token");
 console.log("AIWT: TOKEN: ",token);
 
 const axiosInstanceWithToken = axios.create({
@@ -13,3 +13,4 @@ const axiosInstanceWithToken = axios.create({
 
 
 export { axiosInstanceWithToken };
+
