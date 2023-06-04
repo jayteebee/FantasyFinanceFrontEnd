@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getSpecificIndustry } from "../../../API/industryAPI";
-import SpecificIndustry from "./SpecificIndustry";
 
 const FetchSpecificIndustries = ({ industries, onIndustrySelect }) => {
-  const [specificIndustry, setSpecificIndustry] = useState(null);
   const [input, setInput] = useState("");
 
   const handleChange = (e) => {

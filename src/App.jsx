@@ -4,13 +4,14 @@ import { addStockToWatchlist, createWatchlist, deleteWatchlist, getAllUserWatchl
 import { getAllIndustries, getAllStocksFromIndustry, getSpecificIndustry, getStockFromIndustry } from "./API/industryAPI";
 import { balanceSheet, cashFlow, earnings, incomeStatement, news, overview } from "./API/AlphaVantage/fundamentalDataAPI";
 import { tickerSearch, timeSeriesIntraday } from "./API/AlphaVantage/coreDataAPI";
-import FetchAllIndustries from "./Components/Industry/FetchAll/FetchAllIndustries";
-import FetchSpecificIndustries from "./Components/Industry/FetchSpecific/FetchSpecificIndustry";
-import { useState } from "react";
-import Balance from "./Components/Funding/Balance";
-import PersonalDetails from "./Components/Profile/personalDetails";
-import FetchAllHoldings from "./Components/Holdings/FetchAllHoldings";
-import FetchAllWatchlists from "./Components/Watchlist/FetchAllWatchlists";
+import {Routes, Route} from "react-router-dom";
+import Navigation from "./Components/Navigation";
+import Stocks from "./Pages/Stocks";
+import Profile from "./Pages/Profile";
+import Portfolio from "./Pages/Portfolio";
+import SignUpSignIn from "./Pages/SignUpSignIn";
+import Watchlist from "./Pages/Watchlist";
+
 
 function App() {
 
@@ -65,107 +66,21 @@ function App() {
   // console.log(tickerSearch(1, "tesla")) - working!
 
 
-  const [input, setInput] = useState({
-    name: "",
-    age: "",
-    email: "",
-    password: ""
-  });
-  const [user, setUser] = useState({});
-
-  const handleChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value
-    });
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const newUser = await createUser(input);
-    setUser(newUser);
-  } catch (err) {
-    console.log("Error creating user: ", err);
-  } finally {
-    setInput({
-      name: "",
-      age: "",
-      email: "",
-      password: ""
-    });
-  }
-
-
-}
-
-
-const [input2, setInput2] = useState({
-  name: "",
-  age: "",
-  email: "",
-  password: ""
-});
-const handleChangeLI = (e) => {
-  setInput2({
-    ...input2,
-    [e.target.name]: e.target.value
-  });
-};
-
-const [user2, setUser2] = useState({});
-
-const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    const newLogin = await logIn(input2);
-    setUser2(newLogin);
-  } catch (err) {
-    console.log("Error creating user: ", err);
-  } finally {
-    setInput2({
-      name: "",
-      age: "",
-      email: "",
-      password: ""
-    });
-  }
-
-
-}
-
-
   return (
     <div>
-    <h1>Bonjour</h1>
-    <Balance />
+    <Navigation />
+    <Routes>
+    <Route path="/" element={<Portfolio />} />
+    <Route path="/Stocks" element={<Stocks />} />
+    <Route path="/Profile" element={<Profile />} />
+    <Route path="/login" element={<SignUpSignIn />} />
+    <Route path="/Watchlist" element={<Watchlist />} />
+    
+    </Routes>
 
-    <PersonalDetails />
-     <FetchAllIndustries /> 
+    
+    
 
-     <form onSubmit={handleSubmit}>
-        <input type="text" value={input.name} name="name" placeholder="Username" onChange={handleChange} />
-        <input type="text" value={input.age} name="age" placeholder="Age" onChange={handleChange} />
-        <input type="text" value={input.email} name="email" placeholder="E-mail" onChange={handleChange} />
-        <input type="text" value={input.password} name="password" placeholder="Password" onChange={handleChange} />
-
-        <input type="submit" value="Sign Up" />
-      </form>
-
-
-      <form onSubmit={handleLogin}>
-        <input type="text" value={input2.name} name="name" placeholder="Username" onChange={handleChangeLI} />
-        <input type="text" value={input2.age} name="age" placeholder="Age" onChange={handleChangeLI} />
-        <input type="text" value={input2.email} name="email" placeholder="E-mail" onChange={handleChangeLI} />
-        <input type="text" value={input2.password} name="password" placeholder="Password" onChange={handleChangeLI} />
-
-        <input type="submit" value="Sign In" />
-      </form>
-
-
-      <FetchAllHoldings />
-
-      <FetchAllWatchlists />
     </div>
   );
 }
