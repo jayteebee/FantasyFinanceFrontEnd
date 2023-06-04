@@ -7,7 +7,8 @@ import { tickerSearch, timeSeriesIntraday } from "./API/AlphaVantage/coreDataAPI
 import FetchAllIndustries from "./Components/Industry/FetchAll/FetchAllIndustries";
 import FetchSpecificIndustries from "./Components/Industry/FetchSpecific/FetchSpecificIndustry";
 import { useState } from "react";
-
+import Balance from "./Components/Funding/Balance";
+import PersonalDetails from "./Components/Profile/personalDetails";
 
 function App() {
 
@@ -135,6 +136,9 @@ const handleLogin = async (e) => {
   return (
     <div>
     <h1>Bonjour</h1>
+    <Balance />
+
+    <PersonalDetails />
      <FetchAllIndustries /> 
 
      <form onSubmit={handleSubmit}>
