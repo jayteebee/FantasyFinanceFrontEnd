@@ -9,6 +9,8 @@ import FetchSpecificIndustries from "./Components/Industry/FetchSpecific/FetchSp
 import { useState } from "react";
 import Balance from "./Components/Funding/Balance";
 import PersonalDetails from "./Components/Profile/personalDetails";
+import FetchAllHoldings from "./Components/Holdings/FetchAllHoldings";
+import FetchAllWatchlists from "./Components/Watchlist/FetchAllWatchlists";
 
 function App() {
 
@@ -159,6 +161,11 @@ const handleLogin = async (e) => {
 
         <input type="submit" value="Sign In" />
       </form>
+
+
+      <FetchAllHoldings />
+
+      <FetchAllWatchlists />
     </div>
   );
 }

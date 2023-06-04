@@ -78,14 +78,14 @@ return (
                 <input type='submit' value='Submit' />
             </div>
         ) : (
-            <>
+            <div>
                 Name: {userDetails.name } <br />
                 Age: {userDetails.age} <br />
                 Email: {userDetails.email} <br />
                 Trading Style: {userDetails.trading_style} <br />
                 Experience Level: {userDetails.experience_level} <br />
                 <button onClick={handleUpdateClick}>Update</button>
-            </>
+            </div>
         ))}
         </form>   
     </div>
