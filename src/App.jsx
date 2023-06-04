@@ -11,6 +11,7 @@ import Profile from "./Pages/Profile";
 import Portfolio from "./Pages/Portfolio";
 import SignUpSignIn from "./Pages/SignUpSignIn";
 import Watchlist from "./Pages/Watchlist";
+import "./App.css";
 
 
 function App() {
