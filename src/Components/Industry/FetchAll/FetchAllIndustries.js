@@ -4,7 +4,7 @@ import IndustryList from "./IndustryList";
 import FetchSpecificIndustry from "../FetchSpecific/FetchSpecificIndustry";
 import FetchStocks from "../FetchStocks/FetchStocks";
 
-const FetchAllIndustries = ({ onIndustrySelect }) => {
+const FetchAllIndustries = ({ onIndustrySelect, setStockPurchased, stockPurchased}) => {
   const [industries, setIndustries] = useState(null);
   const [selectedIndustry, setSelectedIndustry] = useState(null);
 
@@ -30,7 +30,10 @@ const FetchAllIndustries = ({ onIndustrySelect }) => {
         industries={industries}
         onIndustrySelect={onIndustrySelect}
       />
-      <FetchStocks industry={selectedIndustry} />
+      <FetchStocks industry={selectedIndustry}
+      setStockPurchased={setStockPurchased}
+      stockPurchased={stockPurchased}
+      />
     </div>
   );
 };

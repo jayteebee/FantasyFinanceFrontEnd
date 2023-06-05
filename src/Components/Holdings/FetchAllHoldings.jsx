@@ -1,19 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import { getAllUserHoldings } from '../../API/holdingAPI'
 
-const FetchAllHoldings = () => {
+
+const FetchAllHoldings = ({stockPurchased}) => {
     const [holdings, setHoldings] = useState(null)
-    const userId = 1
+    const userId = window.localStorage.getItem("userID")
 
 useEffect(() => {
     getAllUserHoldings(userId)
     .then(data => setHoldings(data))
     .catch(err => console.log("API Call Failed", err));
-}, [])
+}, [stockPurchased])
 
   return (
-    <div>
-    <div>FetchAllHoldings</div> <br />
+    <div className="scrollable-div">
+   
     
     {holdings ? holdings.map(holding => (
         <div key={holding.id}>

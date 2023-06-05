@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { getAllUserInfo, updateUserInfo } from "../../API/userAPI";
 import Button from "react-bootstrap/Button";
 
-const Balance = () => {
+const Balance = ({updatedBalance}) => {
   const [userInfo, setUserInfo] = useState("");
-  const userID = 1;
+  const userID =  window.localStorage.getItem("userID");
 
   const [balance, setBalance] = useState("");
   const [managingBalance, setManagingBalance] = useState(false);
@@ -12,18 +12,16 @@ const Balance = () => {
   const [showDeposit, setShowDeposit] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
 
-  console.log("MANAGING BALANCE: ", managingBalance);
 
   useEffect(() => {
     getAllUserInfo(userID)
       .then((data) => {
         setUserInfo(data);
         setBalance(data.balance);
-
-        console.log("BALANCE: ", balance);
       })
       .catch((err) => console.log("API Call Failed", err));
-  }, []);
+  }, [userID, updatedBalance]);
+console.log("BALANCE UPDATED BALANCE", updatedBalance);
 
   const Deposit = (e) => {
     setShowDeposit(true);

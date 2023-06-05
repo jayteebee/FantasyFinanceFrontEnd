@@ -1,11 +1,13 @@
 import React from 'react'
 import FetchAllHoldings from "../Components/Holdings/FetchAllHoldings"
 
-const Holding = () => {
+const Holding = ({stockPurchased}) => {
   return (
     <div>
     <div>Holding</div>
-    <FetchAllHoldings />
+    <FetchAllHoldings
+    stockPurchased={stockPurchased}
+    />
     </div>
   )
 }

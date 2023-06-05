@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { getAllStocksFromIndustry } from "../../../API/industryAPI";
 import { overview } from "../../../API/AlphaVantage/fundamentalDataAPI";
+import BuyStock from "../../Transactions/BuyStock";
+import Button from "react-bootstrap/Button";
 
-const FetchAllStocksFromIndustry = ({ industry, searchSpecificIndustry }) => {
+const FetchAllStocksFromIndustry = ({ industry, setStockPurchased, stockPurchased, setUpdatedBalance, updatedBalance}) => {
   const [industryStocks, setIndustryStocks] = useState(null);
   const [overviewData, setOverviewData] = useState(null);
-  const userID = 1;
+  const [showModal, setShowModal] = useState(false);
+  const userID =  window.localStorage.getItem("userID");
 
   useEffect(() => {
     const industryName = industry;
@@ -28,17 +31,22 @@ const FetchAllStocksFromIndustry = ({ industry, searchSpecificIndustry }) => {
       .catch((err) => console.log("API Call Failed", err));
   };
 
+const buyModal = () => {
+ setShowModal(true);
+}
+console.log("FETCH STOCKS UPDATED BALANCE", updatedBalance);
+
   return (
     <div>
-      <div>
+      <div className="scrollable-div">
         {industryStocks
           ? industryStocks.map((stock) => (
               <div key={stock.id}>
-                <button onClick={() => overviewAPICall(stock.symbol)}>
+                <Button onClick={() => overviewAPICall(stock.symbol)}>
                   {stock.company_name}
                   &nbsp;|&nbsp;
                   {stock.symbol}
-                </button>
+                </Button>
               </div>
             ))
           : null}
@@ -46,23 +54,32 @@ const FetchAllStocksFromIndustry = ({ industry, searchSpecificIndustry }) => {
 
       {overviewData ? (
         <div>
-          <h2>{overviewData.Name}</h2>
+          <h2>{overviewData.Name}</h2> <Button onClick={buyModal} >Buy</Button>
           <br />
-          <p>{overviewData.Description}</p>
+          <p>Description: {overviewData.Description}</p>
           <br />
-          <p>{overviewData.Sector}</p>
+          <p>Sector: {overviewData.Sector}</p>
           <br />
-          <p>{overviewData.Exchange}</p>
+          <p>Exchange: {overviewData.Exchange}</p>
           <br />
-          <p>{overviewData.MarketCapitalization}</p>
+          <p>Market Capitalization: ${overviewData.MarketCapitalization}</p>
           <br />
-          <p>{overviewData.QuarterlyEarningsGrowthYOY}</p>
+          <p>QuarterlyEarningsGrowthYOY: {overviewData.QuarterlyEarningsGrowthYOY}</p>
           <br />
-          <p>{overviewData.QuarterlyRevenueGrowthYOY}</p>
+          <p>QuarterlyRevenueGrowthYOY: {overviewData.QuarterlyRevenueGrowthYOY}</p>
         </div>
       ) : (
         <div>No Stocks Found</div>
       )}
+
+      {showModal ? <BuyStock 
+        overviewData={overviewData}
+        industryStocks={industryStocks}
+        setStockPurchased={setStockPurchased}
+        stockPurchased={stockPurchased}
+        setUpdatedBalance={setUpdatedBalance}
+        updatedBalance={updatedBalance}
+        /> : null}
     </div>
   );
 };

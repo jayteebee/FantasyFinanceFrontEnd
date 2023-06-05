@@ -12,10 +12,15 @@ import Portfolio from "./Pages/Portfolio";
 import SignUpSignIn from "./Pages/SignUpSignIn";
 import Watchlist from "./Pages/Watchlist";
 import Holding from "./Pages/Holding";
+import LogOut from "./Components/Profile/LogOut";
+import Balance from "./Components/Funding/Balance";
+import { useState } from "react";
 import "./App.css";
 
 
 function App() {
+  const [stockPurchased, setStockPurchased] = useState(false);
+  const [updatedBalance, setUpdatedBalance] = useState(false);
 
   // ** userAPI **
 
@@ -66,7 +71,8 @@ function App() {
 
   // console.log(timeSeriesIntraday(1, "TSLA")) - working!
   // console.log(tickerSearch(1, "tesla")) - working!
-
+<Balance updatedBalance={updatedBalance} />
+console.log("APP UPDATED BALANCE", updatedBalance);
 
   return (
     <div className="bigBoi">
@@ -74,11 +80,22 @@ function App() {
     <Navigation />
     <Routes>
     <Route path="/" element={<Portfolio />} />
-    <Route path="/Holding" element={<Holding />} />
-    <Route path="/Stocks" element={<Stocks />} />
+    <Route path="/Holding" 
+    element={<Holding
+      stockPurchased={stockPurchased}
+      />} />
+
+    <Route path="/Stocks" element={<Stocks 
+      setStockPurchased={setStockPurchased}
+      stockPurchased={stockPurchased}
+      setUpdatedBalance={setUpdatedBalance}
+      updatedBalance={updatedBalance}
+      />} />
+
     <Route path="/Profile" element={<Profile />} />
     <Route path="/login" element={<SignUpSignIn />} />
     <Route path="/Watchlist" element={<Watchlist />} />
+    <Route path="/LogOut" element={<LogOut />} />
     
     </Routes>
 

@@ -28,6 +28,8 @@ const Navigation = () => {
             
             <Nav.Link href="/login">Sign Up / Sign In</Nav.Link>
 
+            <Nav.Link href="/LogOut">Log Out</Nav.Link>
+
             </Nav>
             </Navbar.Collapse>
 </Container>

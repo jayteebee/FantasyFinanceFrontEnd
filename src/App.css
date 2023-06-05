@@ -5,3 +5,8 @@
     background-color: #334155;
   color: #fbbf24; 
 }
+
+.scrollable-div {
+  height: 75vh; 
+  overflow-y: auto;
+}
