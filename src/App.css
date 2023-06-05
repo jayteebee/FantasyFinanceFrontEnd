@@ -1,4 +1,7 @@
-body {
+
+
+.background {
+  height: 100vh;
     background-color: #334155;
   color: #fbbf24; 
 }

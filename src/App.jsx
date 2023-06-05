@@ -11,6 +11,7 @@ import Profile from "./Pages/Profile";
 import Portfolio from "./Pages/Portfolio";
 import SignUpSignIn from "./Pages/SignUpSignIn";
 import Watchlist from "./Pages/Watchlist";
+import Holding from "./Pages/Holding";
 import "./App.css";
 
 
@@ -68,10 +69,12 @@ function App() {
 
 
   return (
-    <div>
+    <div className="bigBoi">
+    <div className="background">
     <Navigation />
     <Routes>
     <Route path="/" element={<Portfolio />} />
+    <Route path="/Holding" element={<Holding />} />
     <Route path="/Stocks" element={<Stocks />} />
     <Route path="/Profile" element={<Profile />} />
     <Route path="/login" element={<SignUpSignIn />} />
@@ -82,6 +85,7 @@ function App() {
     
     
 
+    </div>
     </div>
   );
 }

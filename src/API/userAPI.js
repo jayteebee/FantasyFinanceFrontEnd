@@ -44,13 +44,15 @@ export const currentUser = async () => {
 
     const response = await axiosInstance.get("/current_user", {
         headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': token,
         },
     });
     return response.data
 }
 
-// console.log("CURRENT USER: ",currentUser());
+console.log("CURRENT USER: ",currentUser());
+
+
 
 // currentUser()
 //     .then(user => console.log("CURRENT USER: ", user))
