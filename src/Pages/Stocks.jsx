@@ -30,7 +30,10 @@ const Stocks = ({setStockPurchased, stockPurchased, setUpdatedBalance, updatedBa
         </Col>
 
         <Col md={8}>
-          <Balance />
+          <Balance 
+          setUpdatedBalance={setUpdatedBalance}
+          updatedBalance={updatedBalance}
+          />
           <FetchAllStocksFromIndustry 
           industry={selectedIndustry} 
           setStockPurchased={setStockPurchased}

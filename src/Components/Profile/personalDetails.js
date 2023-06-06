@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getAllUserInfo, updateUserInfo } from "../../API/userAPI";
+import Button from "react-bootstrap/esm/Button";
+import { deleteEntireProfile } from "../../API/userAPI";
+import { useNavigate } from "react-router-dom";
 
 const PersonalDetails = () => {
+  const userID =  window.localStorage.getItem("userID");
+
   const [userDetails, setUserDetails] = useState({
     name: "",
     age: "",
@@ -28,7 +33,7 @@ const PersonalDetails = () => {
     cc: "",
     valid_date: "",
   });
-  const userID = 1;
+
 
   useEffect(() => {
     getAllUserInfo(userID)
@@ -71,6 +76,17 @@ const PersonalDetails = () => {
     setIsEditing(true);
     setUpdatedUserDetails(userDetails);
   };
+
+  const navigate = useNavigate();
+  const navigateToLogin = () => {
+    navigate("/login");
+  }
+const deleteProfile = async () => {
+  const deleteUsersProfile = await deleteEntireProfile(userID);
+  console.log(deleteUsersProfile);
+  navigateToLogin()
+}
+
 
   return (
     <div>
@@ -171,11 +187,13 @@ const PersonalDetails = () => {
                 Last Name: {userDetails.lastname} <br />
                 Card Number: {userDetails.cc} <br />
                 Valid Date: {userDetails.valid_date} <br />
-                <button onClick={handleUpdateClick}>Update</button>
+                <Button onClick={handleUpdateClick}>Update</Button>
+                
               </div>
             ))}
         </form>
       </div>
+      <Button variant="danger" onClick={deleteProfile}>Delete Account</Button>
     </div>
   );
 };

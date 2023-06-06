@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getAllUserInfo, updateUserInfo } from "../../API/userAPI";
 import Button from "react-bootstrap/Button";
 
-const Balance = ({updatedBalance}) => {
+const Balance = ({updatedBalance, setUpdatedBalance}) => {
   const [userInfo, setUserInfo] = useState("");
   const userID =  window.localStorage.getItem("userID");
 

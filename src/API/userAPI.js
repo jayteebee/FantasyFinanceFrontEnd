@@ -72,3 +72,13 @@ export const deleteUser = async (userID) => {
 };
 
 // console.log("DELETED USER REQUEST:", deleteUser(76))
+
+export const deleteEntireProfile = async (userID) => {
+  const response = await axiosInstanceWithToken.delete(
+    `/user/${userID}/profile`
+  );
+  console.log("Successful Account Obliteration");
+  window.localStorage.removeItem("token");
+  window.localStorage.removeItem("userID");
+  return response.data;
+}

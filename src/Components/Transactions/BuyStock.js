@@ -30,9 +30,9 @@ useEffect(() => {
 
   const findMatch = industryData.find((name) => name.company_name === overviewInfo.Name);
   const stock = findMatch.id;
-  const positionSize = quantity * price;
-
-
+  
+  let positionSize = quantity * price;
+  
 // BALANCE STILL NEEDS TO BE FIXED
 
   const [trade, setTrade] = useState({
@@ -61,6 +61,7 @@ useEffect(() => {
 
 
 const confirmPosition = async () => {
+  debugger;
     const holding = await createHolding(userID, trade)
     console.log("CH: ", holding)
     setTrade({
@@ -70,6 +71,7 @@ const confirmPosition = async () => {
     }); 
     const newBalance = balance - positionSize;
     await updateBalance(userID, newBalance);
+    setBalance(newBalance);
     setUpdatingBalance(newBalance);
     setStockPurchased(prevState => !prevState);
     
