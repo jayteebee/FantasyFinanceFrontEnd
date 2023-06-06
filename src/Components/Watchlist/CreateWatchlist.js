@@ -5,7 +5,6 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { createWatchlist, addStockToWatchlist } from "../../API/watchlistAPI";
 import { getAllUserWatchlists } from "../../API/watchlistAPI";
 
-
 const CreateWatchlist = ({ overviewData }) => {
   const userID = window.localStorage.getItem("userID");
   const [overviewInfo, setOverviewInfo] = useState(overviewData);
@@ -25,7 +24,7 @@ const CreateWatchlist = ({ overviewData }) => {
       .catch((err) => console.log("API Call Failed", err));
   }, []);
 
-console.log("watchlists: ",watchlists)
+  console.log("watchlists: ", watchlists);
 
   const editingClick = () => {
     setIsEditing(true);
@@ -54,8 +53,12 @@ console.log("watchlists: ",watchlists)
   };
 
   const saveStockToWatchlist = async () => {
-const addStock = await addStockToWatchlist(userID, selectedWatchlist, watchlistStockInfo.stock_symbol)
-  }
+    const addStock = await addStockToWatchlist(
+      userID,
+      selectedWatchlist,
+      watchlistStockInfo.stock_symbol
+    );
+  };
 
   return (
     <div
@@ -97,21 +100,22 @@ const addStock = await addStockToWatchlist(userID, selectedWatchlist, watchlistS
               Select Watchlist
             </Dropdown.Toggle>
 
-            
             <Dropdown.Menu>
-            {watchlists ? watchlists.map((watchlist) => (
-              <Dropdown.Item key={watchlist.id}
-              onClick={() => setSelectedWatchlist(watchlist.id)}
-              >{watchlist.name}</Dropdown.Item>
-              )) : null}
+              {watchlists
+                ? watchlists.map((watchlist) => (
+                    <Dropdown.Item
+                      key={watchlist.id}
+                      onClick={() => setSelectedWatchlist(watchlist.id)}
+                    >
+                      {watchlist.name}
+                    </Dropdown.Item>
+                  ))
+                : null}
             </Dropdown.Menu>
           </Dropdown>
-          <Button 
-  onClick={() => saveStockToWatchlist(selectedWatchlist)}
->
-  Save Stock To Watchlist
-</Button>
-
+          <Button onClick={() => saveStockToWatchlist(selectedWatchlist)}>
+            Save Stock To Watchlist
+          </Button>
         </Modal.Body>
 
         <Modal.Footer>

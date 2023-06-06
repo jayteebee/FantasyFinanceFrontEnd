@@ -69,7 +69,7 @@ const FetchAllWatchlists = () => {
     //   })
     //   .catch((err) => console.log("API Call Failed", err));
 
-    setShowAnalysisData(true)
+    setShowAnalysisData(true);
   };
 
   return (
@@ -103,121 +103,137 @@ const FetchAllWatchlists = () => {
           ))
         : null}
 
-    
-<div>
       <div>
-        {showAnalysisData
-          ? [
-              analysisIncomeStatement.annualReports.reduce(
-                (a, c) => (a.fiscalDateEnding > c.fiscalDateEnding ? a : c),
-                {}
-              ),
-            ].map((report) => (
-              <div key={`income-statement-${report.id}`}>
-                <h2>Income Statement</h2>
-                Gross Profit: {report.grossProfit} <br />
-                Total Revenue: {report.totalRevenue} <br />
-                Cost Of Revenue: {report.costOfRevenue} <br />
-                Cost Of Goods And Services Sold:{" "}
-                {report.costofGoodsAndServicesSold} <br />
-                Operating Income: {report.operatingIncome} <br />
-                Selling General And Administrative:{" "}
-                {report.sellingGeneralAndAdministrative} <br />
-                Research And Development: {report.researchAndDevelopment} <br />
-                Operating Expenses: {report.operatingExpenses} <br />
-                Investment Income Net: {report.investmentIncomeNet} <br />
-                Net Interest Income: {report.netInterestIncome} <br />
-                Interest Income: {report.interestIncome} <br />
-                Interest Expense: {report.interestExpense} <br />
-                Non Interest Income: {report.nonInterestIncome} <br />
-                Other Non Operating Income: {
-                  report.otherNonOperatingIncome
-                }{" "}
-                <br />
-                Depreciation: {report.depreciation} <br />
-                Depreciation And Amortization:{" "}
-                {report.depreciationAndAmortization} <br />
-                Income Before Tax: {report.incomeBeforeTax} <br />
-                Income Tax Expense: {report.incomeTaxExpense} <br />
-                Interest And Debt Expense: {report.interestAndDebtExpense}{" "}
-                <br />
-                Net Income From Continuing Operations:{" "}
-                {report.netIncomeFromContinuingOperations} <br />
-                Comprehensive Income Net Of Tax:{" "}
-                {report.comprehensiveIncomeNetOfTax} <br />
-                EBIT: {report.ebit} <br />
-                EBITDA: {report.ebitda} <br />
-                Net Income: {report.netIncome} <br />
-              </div>
-            ))
-          : null}
-      </div>
+        <div>
+          {showAnalysisData
+            ? [
+                analysisIncomeStatement.annualReports.reduce(
+                  (a, c) => (a.fiscalDateEnding > c.fiscalDateEnding ? a : c),
+                  {}
+                ),
+              ].map((report) => (
+                <div key={`income-statement-${report.id}`}>
+                  <h2>Income Statement</h2>
+                  Gross Profit: {report.grossProfit} <br />
+                  Total Revenue: {report.totalRevenue} <br />
+                  Cost Of Revenue: {report.costOfRevenue} <br />
+                  Cost Of Goods And Services Sold:{" "}
+                  {report.costofGoodsAndServicesSold} <br />
+                  Operating Income: {report.operatingIncome} <br />
+                  Selling General And Administrative:{" "}
+                  {report.sellingGeneralAndAdministrative} <br />
+                  Research And Development: {report.researchAndDevelopment}{" "}
+                  <br />
+                  Operating Expenses: {report.operatingExpenses} <br />
+                  Investment Income Net: {report.investmentIncomeNet} <br />
+                  Net Interest Income: {report.netInterestIncome} <br />
+                  Interest Income: {report.interestIncome} <br />
+                  Interest Expense: {report.interestExpense} <br />
+                  Non Interest Income: {report.nonInterestIncome} <br />
+                  Other Non Operating Income: {
+                    report.otherNonOperatingIncome
+                  }{" "}
+                  <br />
+                  Depreciation: {report.depreciation} <br />
+                  Depreciation And Amortization:{" "}
+                  {report.depreciationAndAmortization} <br />
+                  Income Before Tax: {report.incomeBeforeTax} <br />
+                  Income Tax Expense: {report.incomeTaxExpense} <br />
+                  Interest And Debt Expense: {
+                    report.interestAndDebtExpense
+                  }{" "}
+                  <br />
+                  Net Income From Continuing Operations:{" "}
+                  {report.netIncomeFromContinuingOperations} <br />
+                  Comprehensive Income Net Of Tax:{" "}
+                  {report.comprehensiveIncomeNetOfTax} <br />
+                  EBIT: {report.ebit} <br />
+                  EBITDA: {report.ebitda} <br />
+                  Net Income: {report.netIncome} <br />
+                </div>
+              ))
+            : null}
+        </div>
 
-      <div>
-        {showAnalysisData
-          ? [
-              analysisBalanceSheet.annualReports.reduce(
-                (a, c) => (a.fiscalDateEnding > c.fiscalDateEnding ? a : c),
-                {}
-              ),
-            ].map((report) => (
-              <div key={`report-${report.fiscalDateEnding}`}>
-                <h2>Balance Sheet</h2>
-                Reported Currency: {report.reportedCurrency} <br />
-                Total Assets: {report.totalAssets} <br />
-                Total Current Assets: {report.totalCurrentAssets} <br />
-                Cash And Cash Equivalents At Carrying Value:{" "}
-                {report.cashAndCashEquivalentsAtCarryingValue} <br />
-                Cash And Short Term Investments:{" "}
-                {report.cashAndShortTermInvestments} <br />
-                Inventory: {report.inventory} <br />
-                Current Net Receivables: {report.currentNetReceivables} <br />
-                Total Non Current Assets: {report.totalNonCurrentAssets} <br />
-                Property Plant Equipment: {report.propertyPlantEquipment} <br />
-                Accumulated Depreciation Amortization PPE:{" "}
-                {report.accumulatedDepreciationAmortizationPPE} <br />
-                Intangible Assets: {report.intangibleAssets} <br />
-                Intangible Assets Excluding Goodwill:{" "}
-                {report.intangibleAssetsExcludingGoodwill} <br />
-                Goodwill: {report.goodwill} <br />
-                Investments: {report.investments} <br />
-                Long Term Investments: {report.longTermInvestments} <br />
-                Short Term Investments: {report.shortTermInvestments} <br />
-                Other Current Assets: {report.otherCurrentAssets} <br />
-                Other Non Current Assets: {report.otherNonCurrentAssets} <br />
-                Total Liabilities: {report.totalLiabilities} <br />
-                Total Current Liabilities: {report.totalCurrentLiabilities}{" "}
-                <br />
-                Current Accounts Payable: {report.currentAccountsPayable} <br />
-                Deferred Revenue: {report.deferredRevenue} <br />
-                Current Debt: {report.currentDebt} <br />
-                Short Term Debt: {report.shortTermDebt} <br />
-                Total Non Current Liabilities:{" "}
-                {report.totalNonCurrentLiabilities} <br />
-                Capital Lease Obligations: {report.capitalLeaseObligations}{" "}
-                <br />
-                Long Term Debt: {report.longTermDebt} <br />
-                Current Long Term Debt: {report.currentLongTermDebt} <br />
-                Long Term Debt Noncurrent: {report.longTermDebtNoncurrent}{" "}
-                <br />
-                Short Long Term Debt Total: {report.shortLongTermDebtTotal}{" "}
-                <br />
-                Other Current Liabilities: {report.otherCurrentLiabilities}{" "}
-                <br />
-                Other Non Current Liabilities:{" "}
-                {report.otherNonCurrentLiabilities} <br />
-                Total Shareholder Equity: {report.totalShareholderEquity} <br />
-                Treasury Stock: {report.treasuryStock} <br />
-                Retained Earnings: {report.retainedEarnings} <br />
-                Common Stock: {report.commonStock} <br />
-                Common Stock Shares Outstanding:{" "}
-                {report.commonStockSharesOutstanding} <br />
-              </div>
-            ))
-          : null}
+        <div>
+          {showAnalysisData
+            ? [
+                analysisBalanceSheet.annualReports.reduce(
+                  (a, c) => (a.fiscalDateEnding > c.fiscalDateEnding ? a : c),
+                  {}
+                ),
+              ].map((report) => (
+                <div key={`report-${report.fiscalDateEnding}`}>
+                  <h2>Balance Sheet</h2>
+                  Reported Currency: {report.reportedCurrency} <br />
+                  Total Assets: {report.totalAssets} <br />
+                  Total Current Assets: {report.totalCurrentAssets} <br />
+                  Cash And Cash Equivalents At Carrying Value:{" "}
+                  {report.cashAndCashEquivalentsAtCarryingValue} <br />
+                  Cash And Short Term Investments:{" "}
+                  {report.cashAndShortTermInvestments} <br />
+                  Inventory: {report.inventory} <br />
+                  Current Net Receivables: {report.currentNetReceivables} <br />
+                  Total Non Current Assets: {report.totalNonCurrentAssets}{" "}
+                  <br />
+                  Property Plant Equipment: {report.propertyPlantEquipment}{" "}
+                  <br />
+                  Accumulated Depreciation Amortization PPE:{" "}
+                  {report.accumulatedDepreciationAmortizationPPE} <br />
+                  Intangible Assets: {report.intangibleAssets} <br />
+                  Intangible Assets Excluding Goodwill:{" "}
+                  {report.intangibleAssetsExcludingGoodwill} <br />
+                  Goodwill: {report.goodwill} <br />
+                  Investments: {report.investments} <br />
+                  Long Term Investments: {report.longTermInvestments} <br />
+                  Short Term Investments: {report.shortTermInvestments} <br />
+                  Other Current Assets: {report.otherCurrentAssets} <br />
+                  Other Non Current Assets: {report.otherNonCurrentAssets}{" "}
+                  <br />
+                  Total Liabilities: {report.totalLiabilities} <br />
+                  Total Current Liabilities: {
+                    report.totalCurrentLiabilities
+                  }{" "}
+                  <br />
+                  Current Accounts Payable: {report.currentAccountsPayable}{" "}
+                  <br />
+                  Deferred Revenue: {report.deferredRevenue} <br />
+                  Current Debt: {report.currentDebt} <br />
+                  Short Term Debt: {report.shortTermDebt} <br />
+                  Total Non Current Liabilities:{" "}
+                  {report.totalNonCurrentLiabilities} <br />
+                  Capital Lease Obligations: {
+                    report.capitalLeaseObligations
+                  }{" "}
+                  <br />
+                  Long Term Debt: {report.longTermDebt} <br />
+                  Current Long Term Debt: {report.currentLongTermDebt} <br />
+                  Long Term Debt Noncurrent: {
+                    report.longTermDebtNoncurrent
+                  }{" "}
+                  <br />
+                  Short Long Term Debt Total: {
+                    report.shortLongTermDebtTotal
+                  }{" "}
+                  <br />
+                  Other Current Liabilities: {
+                    report.otherCurrentLiabilities
+                  }{" "}
+                  <br />
+                  Other Non Current Liabilities:{" "}
+                  {report.otherNonCurrentLiabilities} <br />
+                  Total Shareholder Equity: {report.totalShareholderEquity}{" "}
+                  <br />
+                  Treasury Stock: {report.treasuryStock} <br />
+                  Retained Earnings: {report.retainedEarnings} <br />
+                  Common Stock: {report.commonStock} <br />
+                  Common Stock Shares Outstanding:{" "}
+                  {report.commonStockSharesOutstanding} <br />
+                </div>
+              ))
+            : null}
+        </div>
       </div>
-
-     </div>
     </div>
   );
 };
