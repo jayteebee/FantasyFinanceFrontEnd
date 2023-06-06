@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
-import {getAllUserWatchlists} from '../../API/watchlistAPI'
+import {getAllUserWatchlists, getStocksFromWatchlist} from '../../API/watchlistAPI'
+import Button from 'react-bootstrap/esm/Button'
 
 const FetchAllWatchlists = () => {
     const [watchlists, setWatchlists] = useState(null)
-    const userID = 1
+    const [watchlistStocks, setWatchlistStocks] = useState(null)
+    const [showStocks, setShowStocks] = useState(false)
+    const userID =  window.localStorage.getItem("userID");
 
     useEffect(() => {
         getAllUserWatchlists(userID)
@@ -11,21 +14,37 @@ const FetchAllWatchlists = () => {
         .catch(err => console.log("API Call Failed", err))
     }, [])
     
-
+    const showWatchlistStocks = async (watchlist) => {
+      const response = await getStocksFromWatchlist(userID, watchlist)
+      .then (data => {
+        setWatchlistStocks(data)
+        console.log("DATA: ",data)
+      })
+      .catch((err) => console.log("API Call Failed", err));
+      setShowStocks(true)
+    }
   return (
     <div>
 
-    <div>FetchAllWatchlists</div> 
+    <h2>Watchlists</h2> 
 {watchlists ? watchlists.map(watchlist => (
-<div key={watchlist.id}>
-<button>
+<div key={`watchlist-${watchlist.id}`}>
+<Button onClick={() => {showWatchlistStocks(watchlist.id)}}>
 {watchlist.name}
-</button>
+</Button>
 
 
 
 </div>
 )): <p>Make Watchlists!</p>}
+
+{showStocks ? watchlistStocks.map(stock => (
+  <div key={`stock-${stock.id}`}>
+  Name: {stock.company_name}
+  Ticker Symbol: {stock.symbol}
+
+  </div>
+)) : <p>Buy Stocks, brokie.</p>}
 
     </div>
   )
@@ -34,16 +53,3 @@ const FetchAllWatchlists = () => {
 export default FetchAllWatchlists
 
 
-
-/*
-MAPPING OVER WATCHLIST TO GET ALL STOCKS
-{watchlist.stocks.map(stock => (
-    <div>
-    {stock.company_name} | {stock.symbol}
-
-    </div>
-))
-
-
-}
-*/

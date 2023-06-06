@@ -21,7 +21,6 @@ const Balance = ({updatedBalance, setUpdatedBalance}) => {
       })
       .catch((err) => console.log("API Call Failed", err));
   }, [userID, updatedBalance]);
-console.log("BALANCE UPDATED BALANCE", updatedBalance);
 
   const Deposit = (e) => {
     setShowDeposit(true);

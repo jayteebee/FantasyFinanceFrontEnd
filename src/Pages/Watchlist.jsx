@@ -4,7 +4,6 @@ import FetchAllWatchlists from '../Components/Watchlist/FetchAllWatchlists'
 const Watchlist = () => {
   return (
     <div>
-    <div>Watchlist</div>
     <FetchAllWatchlists />
     </div>
   )

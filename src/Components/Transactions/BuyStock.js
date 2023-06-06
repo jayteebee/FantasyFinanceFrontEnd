@@ -5,19 +5,23 @@ import { createHolding } from "../../API/holdingAPI";
 import { timeSeriesIntraday } from "../../API/AlphaVantage/coreDataAPI";
 import { getAllUserInfo, updateUserInfo } from "../../API/userAPI";
 
-
-
-const BuyStock = ({ overviewData, industryStocks, setStockPurchased, setUpdatedBalance, updatedBalance }) => {
+const BuyStock = ({
+  overviewData,
+  industryStocks,
+  setStockPurchased,
+  setUpdatedBalance,
+  updatedBalance,
+}) => {
   const [overviewInfo, setOverviewInfo] = useState(overviewData);
   const industryData = industryStocks;
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(null);
- const userID = window.localStorage.getItem("userID");
+  const userID = window.localStorage.getItem("userID");
 
-const [balance, setBalance] = useState(0);
-const [updatingBalance, setUpdatingBalance] = useState(0);
+  const [balance, setBalance] = useState(0);
+  const [updatingBalance, setUpdatingBalance] = useState(0);
 
-useEffect(() => {
+  useEffect(() => {
     getAllUserInfo(userID)
       .then((data) => {
         setBalance(data.balance);
@@ -26,14 +30,14 @@ useEffect(() => {
       .catch((err) => console.log("API Call Failed", err));
   }, []);
 
- 
-
-  const findMatch = industryData.find((name) => name.company_name === overviewInfo.Name);
+  const findMatch = industryData.find(
+    (name) => name.company_name === overviewInfo.Name
+  );
   const stock = findMatch.id;
-  
+
   let positionSize = quantity * price;
-  
-// BALANCE STILL NEEDS TO BE FIXED
+
+
 
   const [trade, setTrade] = useState({
     quantity: null,
@@ -52,40 +56,36 @@ useEffect(() => {
 
   const openPosition = async () => {
     setTrade({
-        quantity: quantity,
-    purchase_price: positionSize,
-    stock_id: stock,
-    }) 
-}
+      quantity: quantity,
+      purchase_price: positionSize,
+      stock_id: stock,
+    });
+  };
 
-
-
-const confirmPosition = async () => {
-  debugger;
-    const holding = await createHolding(userID, trade)
-    console.log("CH: ", holding)
+  const confirmPosition = async () => {
+    debugger;
+    const holding = await createHolding(userID, trade);
+    console.log("CH: ", holding);
     setTrade({
       quantity: null,
       purchase_price: null,
       stock_id: null,
-    }); 
+    });
     const newBalance = balance - positionSize;
     await updateBalance(userID, newBalance);
     setBalance(newBalance);
     setUpdatingBalance(newBalance);
-    setStockPurchased(prevState => !prevState);
-    
-  }
-  
+    setStockPurchased((prevState) => !prevState);
+  };
+
   const updateBalance = async (userID, newBalance) => {
-    const balanceUpdate = await updateUserInfo(userID, {balance: newBalance})
-    setUpdatedBalance(prevState => !prevState)
-    console.log("Balance Updated Succesfully. Balance is now: ",balanceUpdate.balance)
-  }
-
-
-console.log("UP BALANCE",updatingBalance)
-console.log("BUY STOCKS UPDATED BALANCE", updatedBalance);
+    const balanceUpdate = await updateUserInfo(userID, { balance: newBalance });
+    setUpdatedBalance((prevState) => !prevState);
+    console.log(
+      "Balance Updated Succesfully. Balance is now: ",
+      balanceUpdate.balance
+    );
+  };
 
 
   return (
@@ -115,10 +115,17 @@ console.log("BUY STOCKS UPDATED BALANCE", updatedBalance);
 
         <Modal.Footer>
           <Button variant="secondary">Exit Trade</Button>
-          {trade.quantity && trade.purchase_price && trade.stock_id ? <Button variant="primary" onClick={confirmPosition}>Confirm Position</Button>
-          : 
-          <Button variant="primary" onClick={openPosition}> Open Position</Button> 
-          }
+          
+          {trade.quantity && trade.purchase_price && trade.stock_id ? (
+            <Button variant="primary" onClick={confirmPosition}>
+              Confirm Position
+            </Button>
+          ) : (
+            <Button variant="primary" onClick={openPosition}>
+              {" "}
+              Open Position
+            </Button>
+          )}
         </Modal.Footer>
       </Modal.Dialog>
     </div>
@@ -127,22 +134,13 @@ console.log("BUY STOCKS UPDATED BALANCE", updatedBalance);
 
 export default BuyStock;
 
-/*
 
-To buy a stock:
+/* 
+Holdings is currently trade history, with a record of all the trades made 
+and at what price
 
-1. Click on the buy/sell button
-2. Make sure you're in the correct table, buy or sell
-3) The Stock name should be brought through from the button click
- - so when someone has clicked on Apple button from the FetchStocks component, the buy stock name should be "Apple"
-4) They should be able to adjust the stock quantity
-5) Each time they adjust the stock quantity, they should be able to see the stock price change accordingly
-6) When they click on the buy/sell button, they should be able to buy or sell the stock
- - When this happens, this route: localhost:4000/user/1/holdings needs to active
- - this will add the stock to the user's holdings table
-7) The total position size should then be added/subtracted from the user's balance
-8) If the total position size is greater than the users balance, the trade should fail
+there needs to be another feature, where it collects all stocks of the same
+name and accumulates the total price/quantity of all the stocks.
 
-
-
+It also needs to signpost if it was a buy or sell.
 */

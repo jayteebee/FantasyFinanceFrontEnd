@@ -2,13 +2,24 @@ import React, { useState, useEffect } from "react";
 import { getAllStocksFromIndustry } from "../../../API/industryAPI";
 import { overview } from "../../../API/AlphaVantage/fundamentalDataAPI";
 import BuyStock from "../../Transactions/BuyStock";
+import SellStock from "../../Transactions/SellStock";
 import Button from "react-bootstrap/Button";
+import CreateWatchlist from "../../Watchlist/CreateWatchlist";
 
-const FetchAllStocksFromIndustry = ({ industry, setStockPurchased, stockPurchased, setUpdatedBalance, updatedBalance}) => {
+const FetchAllStocksFromIndustry = ({
+  industry,
+  setStockPurchased,
+  stockPurchased,
+  setUpdatedBalance,
+  updatedBalance,
+}) => {
   const [industryStocks, setIndustryStocks] = useState(null);
   const [overviewData, setOverviewData] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const userID =  window.localStorage.getItem("userID");
+  const [buyModal, setBuyModal] = useState(false);
+  const [sellModal, setSellModal] = useState(false);
+  const [watchlistModal, setWatchlistModal] = useState(false);
+
+  const userID = window.localStorage.getItem("userID");
 
   useEffect(() => {
     const industryName = industry;
@@ -31,10 +42,22 @@ const FetchAllStocksFromIndustry = ({ industry, setStockPurchased, stockPurchase
       .catch((err) => console.log("API Call Failed", err));
   };
 
-const buyModal = () => {
- setShowModal(true);
-}
-console.log("FETCH STOCKS UPDATED BALANCE", updatedBalance);
+  const showBuyModal = () => {
+    setWatchlistModal(false);
+    setSellModal(false);
+    setBuyModal(true);
+  };
+  const showSellModal = () => {
+    setWatchlistModal(false);
+    setBuyModal(false);
+    setSellModal(true);
+  };
+
+  const showWatchlistModal = () => {
+    setSellModal(false);
+    setBuyModal(false);
+    setWatchlistModal(true);
+  };
 
   return (
     <div>
@@ -54,7 +77,10 @@ console.log("FETCH STOCKS UPDATED BALANCE", updatedBalance);
 
       {overviewData ? (
         <div>
-          <h2>{overviewData.Name}</h2> <Button onClick={buyModal} >Buy</Button>
+          <h2>{overviewData.Name}</h2>
+          <Button onClick={showBuyModal}>Buy</Button>
+          <Button onClick={showSellModal}>Sell</Button>
+          <Button onClick={showWatchlistModal}>Add To Watchlist</Button>
           <br />
           <p>Description: {overviewData.Description}</p>
           <br />
@@ -64,22 +90,40 @@ console.log("FETCH STOCKS UPDATED BALANCE", updatedBalance);
           <br />
           <p>Market Capitalization: ${overviewData.MarketCapitalization}</p>
           <br />
-          <p>QuarterlyEarningsGrowthYOY: {overviewData.QuarterlyEarningsGrowthYOY}</p>
+          <p>
+            QuarterlyEarningsGrowthYOY:{" "}
+            {overviewData.QuarterlyEarningsGrowthYOY}
+          </p>
           <br />
-          <p>QuarterlyRevenueGrowthYOY: {overviewData.QuarterlyRevenueGrowthYOY}</p>
+          <p>
+            QuarterlyRevenueGrowthYOY: {overviewData.QuarterlyRevenueGrowthYOY}
+          </p>
         </div>
       ) : (
         <div>No Stocks Found</div>
       )}
 
-      {showModal ? <BuyStock 
-        overviewData={overviewData}
-        industryStocks={industryStocks}
-        setStockPurchased={setStockPurchased}
-        stockPurchased={stockPurchased}
-        setUpdatedBalance={setUpdatedBalance}
-        updatedBalance={updatedBalance}
-        /> : null}
+      {buyModal ? (
+        <BuyStock
+          overviewData={overviewData}
+          industryStocks={industryStocks}
+          setStockPurchased={setStockPurchased}
+          stockPurchased={stockPurchased}
+          setUpdatedBalance={setUpdatedBalance}
+          updatedBalance={updatedBalance}
+        />
+      ) : null}
+      {sellModal ? (
+        <SellStock
+          overviewData={overviewData}
+          industryStocks={industryStocks}
+          setStockPurchased={setStockPurchased}
+          stockPurchased={stockPurchased}
+          setUpdatedBalance={setUpdatedBalance}
+          updatedBalance={updatedBalance}
+        />
+      ) : null}
+      {watchlistModal ? <CreateWatchlist overviewData={overviewData} /> : null}
     </div>
   );
 };

@@ -14,7 +14,6 @@ const Stocks = ({setStockPurchased, stockPurchased, setUpdatedBalance, updatedBa
     setSelectedIndustry(industry);
   };
 
-  console.log("STOCKS UPDATED BALANCE", updatedBalance);
 
   return (
     <Container>

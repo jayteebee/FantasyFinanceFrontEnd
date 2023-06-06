@@ -18,7 +18,6 @@ function App() {
   const [updatedBalance, setUpdatedBalance] = useState(false);
 
   <Balance updatedBalance={updatedBalance} />;
-  console.log("APP UPDATED BALANCE", updatedBalance);
 
   return (
     <div>
