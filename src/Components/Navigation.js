@@ -19,12 +19,11 @@ const Navigation = () => {
 
             <Nav.Link href="/Holding">Holdings</Nav.Link>
 
-          
             <Nav.Link href="/Stocks">Stocks</Nav.Link>
            
             <Nav.Link href="/Profile">Profile</Nav.Link>
             
-            <Nav.Link href="/Watchlist">Watch Lists</Nav.Link>
+            <Nav.Link href="/Watchlist">Watchlists And Analysis</Nav.Link>
             
             <Nav.Link href="/login">Sign Up / Sign In</Nav.Link>
 

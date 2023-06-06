@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Dropdown from "react-bootstrap/Dropdown";
 import { createWatchlist, addStockToWatchlist } from "../../API/watchlistAPI";
+import { getAllUserWatchlists } from "../../API/watchlistAPI";
+
 
 const CreateWatchlist = ({ overviewData }) => {
   const userID = window.localStorage.getItem("userID");
@@ -12,7 +15,17 @@ const CreateWatchlist = ({ overviewData }) => {
   });
   const [watchlistStockInfo, setWatchlistStockInfo] = useState({
     stock_symbol: overviewData.Symbol,
-  })
+  });
+  const [watchlists, setWatchlists] = useState(null);
+  const [selectedWatchlist, setSelectedWatchlist] = useState(null);
+
+  useEffect(() => {
+    getAllUserWatchlists(userID)
+      .then((data) => setWatchlists(data))
+      .catch((err) => console.log("API Call Failed", err));
+  }, []);
+
+console.log("watchlists: ",watchlists)
 
   const editingClick = () => {
     setIsEditing(true);
@@ -27,17 +40,23 @@ const CreateWatchlist = ({ overviewData }) => {
 
   const handleAPICall = async (e) => {
     e.preventDefault();
-    console.log("WATCHLIST INFO NAME",watchlistInfo.name);
-   const createList = await createWatchlist(userID, {watchlist: {name: watchlistInfo.name}});
-   console.log("CREATE LIST NAME",createList);
-   const watchlistID = createList.id;
-   const createStock = await addStockToWatchlist(userID, watchlistID, watchlistStockInfo.stock_symbol)
-  console.log("CREATE STOCK",createStock);
-  setIsEditing(false);
-}
+    const createList = await createWatchlist(userID, {
+      watchlist: { name: watchlistInfo.name },
+    });
+    const watchlistID = createList.id;
+    const createStock = await addStockToWatchlist(
+      userID,
+      watchlistID,
+      watchlistStockInfo.stock_symbol
+    );
+    console.log("CREATE STOCK", createStock);
+    setIsEditing(false);
+  };
 
-console.log("OVERVIEW INFO",overviewInfo);
-console.log("WATCHLIST INFO",watchlistInfo);
+  const saveStockToWatchlist = async () => {
+const addStock = await addStockToWatchlist(userID, selectedWatchlist, watchlistStockInfo.stock_symbol)
+  }
+
   return (
     <div
       className="modal show"
@@ -54,21 +73,45 @@ console.log("WATCHLIST INFO",watchlistInfo);
           <h5>{overviewInfo.Name}</h5>
           <p>{overviewInfo.Symbol}</p>
           <h5>{overviewInfo.Exchange}</h5>
-          
 
           {isEditing ? (
             <form onSubmit={handleAPICall}>
-            <input
-              name="name"
-              value={watchlistInfo.name}
-              placeholder="Enter Watchlist Name"
-              onChange={handleChange}
-            ></input>
-            <Button type="submit" variant="primary" > Submit </Button>
+              <input
+                name="name"
+                value={watchlistInfo.name}
+                placeholder="Enter Watchlist Name"
+                onChange={handleChange}
+              ></input>
+              <Button type="submit" variant="primary">
+                {" "}
+                Submit{" "}
+              </Button>
             </form>
           ) : (
             <Button onClick={editingClick}> Create Watchlist </Button>
           )}
+
+          <h2>Add Stock To Watchlist</h2>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Select Watchlist
+            </Dropdown.Toggle>
+
+            
+            <Dropdown.Menu>
+            {watchlists ? watchlists.map((watchlist) => (
+              <Dropdown.Item key={watchlist.id}
+              onClick={() => setSelectedWatchlist(watchlist.id)}
+              >{watchlist.name}</Dropdown.Item>
+              )) : null}
+            </Dropdown.Menu>
+          </Dropdown>
+          <Button 
+  onClick={() => saveStockToWatchlist(selectedWatchlist)}
+>
+  Save Stock To Watchlist
+</Button>
+
         </Modal.Body>
 
         <Modal.Footer>
@@ -82,8 +125,6 @@ console.log("WATCHLIST INFO",watchlistInfo);
 };
 
 export default CreateWatchlist;
-
-
 
 /**
  

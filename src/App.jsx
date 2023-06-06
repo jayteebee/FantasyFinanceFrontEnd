@@ -25,7 +25,9 @@ function App() {
         <Navigation />
         <Routes>
         <Route element={<PrivateRoute />}> 
-            <Route path="/" element={<Portfolio />} />
+            <Route path="/" element={<Portfolio
+              stockPurchased={stockPurchased}
+              />} />
             <Route
               path="/Holding"
               element={<Holding stockPurchased={stockPurchased} />}
