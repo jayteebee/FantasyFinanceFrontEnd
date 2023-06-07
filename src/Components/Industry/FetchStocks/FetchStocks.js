@@ -4,7 +4,7 @@ import { overview } from "../../../API/AlphaVantage/fundamentalDataAPI";
 import BuyStock from "../../Transactions/BuyStock";
 import SellStock from "../../Transactions/SellStock";
 import Button from "react-bootstrap/Button";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
 import CreateWatchlist from "../../Watchlist/CreateWatchlist";
 
@@ -60,17 +60,18 @@ const FetchAllStocksFromIndustry = ({
     setBuyModal(false);
     setWatchlistModal(true);
   };
-debugger;
+
   return (
-    <div>
-    <Row>
-      <div className="half-scrollable-div">
+    <div style={{ display: "flex", flexDirection:"row", justifyContent:"space-evenly"}}>
+      <div className="half-scrollable-div" style={{ width:"45%"}}>
         {industryStocks
           ? industryStocks.map((stock) => (
               <div key={stock.id}>
                 <Button
-                variant="outline-light" size="sm"
-                onClick={() => overviewAPICall(stock.symbol)}>
+                  variant="outline-light"
+                  size="sm"
+                  onClick={() => overviewAPICall(stock.symbol)}
+                >
                   {stock.company_name}
                   &nbsp;|&nbsp;
                   {stock.symbol}
@@ -78,64 +79,61 @@ debugger;
               </div>
             ))
           : null}
-
       </div>
 
+      <div className="half-scrollable-div" style={{ width:"45%"}}>
+        {overviewData ? (
+          <div>
+            <h2>{overviewData.Name}</h2>
+            <Button onClick={showBuyModal}>Buy</Button>
+            <Button onClick={showSellModal}>Sell</Button>
+            <Button onClick={showWatchlistModal}>Add To Watchlist</Button>
+            <br />
+            <p>Description: {overviewData.Description}</p>
+            <br />
+            <p>Sector: {overviewData.Sector}</p>
+            <br />
+            <p>Exchange: {overviewData.Exchange}</p>
+            <br />
+            <p>Market Capitalization: ${overviewData.MarketCapitalization}</p>
+            <br />
+            <p>
+              QuarterlyEarningsGrowthYOY:{" "}
+              {overviewData.QuarterlyEarningsGrowthYOY}
+            </p>
+            <br />
+            <p>
+              QuarterlyRevenueGrowthYOY:{" "}
+              {overviewData.QuarterlyRevenueGrowthYOY}
+            </p>
+          </div>
+        ) : null}
 
-<div className="half-scrollable-div">
-      {overviewData ? (
-        <div>
-          <h2>{overviewData.Name}</h2>
-          <Button onClick={showBuyModal}>Buy</Button>
-          <Button onClick={showSellModal}>Sell</Button>
-          <Button onClick={showWatchlistModal}>Add To Watchlist</Button>
-          <br />
-          <p>Description: {overviewData.Description}</p>
-          <br />
-          <p>Sector: {overviewData.Sector}</p>
-          <br />
-          <p>Exchange: {overviewData.Exchange}</p>
-          <br />
-          <p>Market Capitalization: ${overviewData.MarketCapitalization}</p>
-          <br />
-          <p>
-            QuarterlyEarningsGrowthYOY:{" "}
-            {overviewData.QuarterlyEarningsGrowthYOY}
-          </p>
-          <br />
-          <p>
-            QuarterlyRevenueGrowthYOY: {overviewData.QuarterlyRevenueGrowthYOY}
-          </p>
-        </div>
-      ) : (
-        null
-      )}
-      
-      {buyModal ? (
-        <BuyStock
-          overviewData={overviewData}
-          industryStocks={industryStocks}
-          setStockPurchased={setStockPurchased}
-          stockPurchased={stockPurchased}
-          setUpdatedBalance={setUpdatedBalance}
-          updatedBalance={updatedBalance}
-        />
-      ) : null}
-      {sellModal ? (
-        <SellStock
-          overviewData={overviewData}
-          industryStocks={industryStocks}
-          setStockPurchased={setStockPurchased}
-          stockPurchased={stockPurchased}
-          setUpdatedBalance={setUpdatedBalance}
-          updatedBalance={updatedBalance}
-        />
-      ) : null}
-      {watchlistModal ? <CreateWatchlist overviewData={overviewData} /> : null}
-    
+        {buyModal ? (
+          <BuyStock
+            overviewData={overviewData}
+            industryStocks={industryStocks}
+            setStockPurchased={setStockPurchased}
+            stockPurchased={stockPurchased}
+            setUpdatedBalance={setUpdatedBalance}
+            updatedBalance={updatedBalance}
+          />
+        ) : null}
+        {sellModal ? (
+          <SellStock
+            overviewData={overviewData}
+            industryStocks={industryStocks}
+            setStockPurchased={setStockPurchased}
+            stockPurchased={stockPurchased}
+            setUpdatedBalance={setUpdatedBalance}
+            updatedBalance={updatedBalance}
+          />
+        ) : null}
+        {watchlistModal ? (
+          <CreateWatchlist overviewData={overviewData} />
+        ) : null}
       </div>
-    </Row>
-      </div>
+    </div>
   );
 };
 

@@ -19,10 +19,7 @@ const Stocks = ({
   const handleIndustrySelect = (industry) => {
     setSelectedIndustry(industry);
   };
-<Balance
-            setUpdatedBalance={setUpdatedBalance}
-            updatedBalance={updatedBalance}
-          />
+
   return (
     <Container>
       <Row>
@@ -36,7 +33,7 @@ const Stocks = ({
 
         </Col>
 
-        <Col md={4}>
+        <Col md={9}>
         <h2>Stocks</h2>
           <FetchAllStocksFromIndustry
             industry={selectedIndustry}

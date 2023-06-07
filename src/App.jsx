@@ -16,13 +16,17 @@ import "./App.css";
 function App() {
   const [stockPurchased, setStockPurchased] = useState(false);
   const [updatedBalance, setUpdatedBalance] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   <Balance updatedBalance={updatedBalance} />;
 
   return (
     <div>
       <div className="background">
-        <Navigation />
+        <Navigation
+        setUpdatedBalance={setUpdatedBalance}
+            updatedBalance={updatedBalance}
+        />
         <Routes>
         <Route element={<PrivateRoute />}> 
             <Route path="/" element={<Portfolio
@@ -48,10 +52,17 @@ function App() {
             <Route path="/Profile" element={<Profile />} />
 
             <Route path="/Watchlist" element={<Watchlist />} />
-            <Route path="/LogOut" element={<LogOut />} />
+            <Route path="/LogOut" element={<LogOut
+              setUpdatedBalance={setUpdatedBalance}
+              setShowRegister={setShowRegister}
+              showRegister={showRegister}
+              />} />
          </Route>
 
-          <Route path="/login" element={<SignUpSignIn />} />
+          <Route path="/login" element={<SignUpSignIn
+            setShowRegister={setShowRegister}
+            showRegister={showRegister}
+            />} />
         </Routes>
       </div>
     </div>

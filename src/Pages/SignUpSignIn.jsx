@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { createUser } from "../API/userAPI";
 import { logIn } from "../API/userAPI";
+import { useNavigate } from "react-router-dom";
 
-const SignUpSignIn = () => {
+import {
+  MDBInput,
+  MDBCol,
+  MDBRow,
+  MDBCheckbox,
+  MDBBtn,
+  MDBIcon,
+} from "mdb-react-ui-kit";
 
+const SignUpSignIn = ({ showRegister, setShowRegister }) => {
+  const navigate = useNavigate();
   // STATE
   const [input, setInput] = useState({
     name: "",
@@ -23,7 +33,7 @@ const SignUpSignIn = () => {
   const [user2, setUser2] = useState({});
 
   // FUNCTIONS
-  
+
   const handleChange = (e) => {
     setInput({
       ...input,
@@ -53,6 +63,7 @@ const SignUpSignIn = () => {
         password: "",
       });
     }
+    navigate("/");
   };
 
   const handleLogin = async (e) => {
@@ -70,77 +81,172 @@ const SignUpSignIn = () => {
         password: "",
       });
     }
+    navigate("/");
+  };
+
+  const showRegistration = () => {
+    setShowRegister(true);
   };
 
   return (
     <div>
-      <div>SignUpSignIn</div>
+      {showRegister ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+            <MDBRow className="mb-4">
+              <MDBCol>
+                <MDBInput
+                  type="text"
+                  value={input.name}
+                  name="name"
+                  placeholder="Username"
+                  onChange={handleChange}
+                  label="First name"
+                />
+              </MDBCol>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={input.name}
-          name="name"
-          placeholder="Username"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          value={input.age}
-          name="age"
-          placeholder="Age"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          value={input.email}
-          name="email"
-          placeholder="E-mail"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          value={input.password}
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
+              <MDBCol>
+                <MDBInput
+                  type="text"
+                  value={input.age}
+                  name="age"
+                  placeholder="Age"
+                  onChange={handleChange}
+                  label="Age"
+                />
+              </MDBCol>
+            </MDBRow>
 
-        <input type="submit" value="Sign Up" />
-      </form>
+            <MDBInput
+              className="mb-4"
+              type="email"
+              value={input.email}
+              name="email"
+              placeholder="E-mail"
+              onChange={handleChange}
+              label="Email address"
+            />
 
-      <form onSubmit={handleLogin}>
-        <input
-          type="text"
-          value={input2.name}
-          name="name"
-          placeholder="Username"
-          onChange={handleChangeLI}
-        />
-        <input
-          type="text"
-          value={input2.age}
-          name="age"
-          placeholder="Age"
-          onChange={handleChangeLI}
-        />
-        <input
-          type="text"
-          value={input2.email}
-          name="email"
-          placeholder="E-mail"
-          onChange={handleChangeLI}
-        />
-        <input
-          type="text"
-          value={input2.password}
-          name="password"
-          placeholder="Password"
-          onChange={handleChangeLI}
-        />
+            <MDBInput
+              className="mb-4"
+              type="password"
+              value={input.password}
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              label="Password"
+            />
 
-        <input type="submit" value="Sign In" />
-      </form>
+            <MDBBtn type="submit" value="Register" className="mb-4" block>
+              Register
+            </MDBBtn>
+
+            <div className="text-center">
+              <p>or sign up with:</p>
+              <MDBBtn floating color="secondary" className="mx-1">
+                <MDBIcon fab icon="facebook-f" />
+              </MDBBtn>
+              <MDBBtn floating color="secondary" className="mx-1">
+                <MDBIcon fab icon="google" />
+              </MDBBtn>
+              <MDBBtn floating color="secondary" className="mx-1">
+                <MDBIcon fab icon="twitter" />
+              </MDBBtn>
+              <MDBBtn floating color="secondary" className="mx-1">
+                <MDBIcon fab icon="github" />
+              </MDBBtn>
+            </div>
+          </form>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <form onSubmit={handleLogin}>
+            <MDBRow className="mb-4">
+              <MDBCol>
+                <MDBInput
+                  type="text"
+                  value={input2.name}
+                  name="name"
+                  placeholder="Username"
+                  onChange={handleChangeLI}
+                  label="First name"
+                />
+              </MDBCol>
+
+              <MDBCol>
+                <MDBInput
+                  type="text"
+                  value={input2.age}
+                  name="age"
+                  placeholder="Age"
+                  onChange={handleChangeLI}
+                  label="Age"
+                />
+              </MDBCol>
+            </MDBRow>
+
+            <MDBInput
+              className="mb-4"
+              type="email"
+              value={input2.email}
+              name="email"
+              placeholder="E-mail"
+              onChange={handleChangeLI}
+              label="Email address"
+            />
+
+            <MDBInput
+              className="mb-4"
+              type="password"
+              id="form3Example"
+              value={input2.password}
+              name="password"
+              placeholder="Password"
+              onChange={handleChangeLI}
+              label="Password"
+            />
+
+            <MDBBtn type="submit" value="Sign In" className="mb-4" block>
+              Sign in
+            </MDBBtn>
+
+            <div className="text-center">
+              <p>
+                Not a member?{" "}
+                <MDBBtn onClick={showRegistration}>Register</MDBBtn>
+              </p>
+
+              <p>or sign up with:</p>
+              <MDBBtn floating color="secondary" className="mx-1">
+                <MDBIcon fab icon="facebook-f" />
+              </MDBBtn>
+              <MDBBtn floating color="secondary" className="mx-1">
+                <MDBIcon fab icon="google" />
+              </MDBBtn>
+              <MDBBtn floating color="secondary" className="mx-1">
+                <MDBIcon fab icon="twitter" />
+              </MDBBtn>
+              <MDBBtn floating color="secondary" className="mx-1">
+                <MDBIcon fab icon="github" />
+              </MDBBtn>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
