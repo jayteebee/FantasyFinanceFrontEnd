@@ -12,7 +12,7 @@ const IndustryList = ({ industries, onIndustrySelect }) => {
   return (
     <div>
       <Row>
-        <div className="half-scrollable-div">
+        <div className="half-scrollable-div ">
           <ButtonGroup vertical>
             {industries.map((industry) => (
               <div key={industry.id}>

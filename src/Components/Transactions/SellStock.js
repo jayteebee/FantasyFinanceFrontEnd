@@ -11,6 +11,7 @@ const SellStock = ({
   setStockPurchased,
   setUpdatedBalance,
   updatedBalance,
+  setSellModal
 }) => {
 const userID = window.localStorage.getItem("userID");
 
@@ -54,7 +55,7 @@ const userID = window.localStorage.getItem("userID");
 
   const openPosition = async () => {
     setTrade({
-      quantity: quantity,
+      quantity: - quantity,
       purchase_price: positionSize,
       stock_id: stock,
     });
@@ -88,10 +89,12 @@ const userID = window.localStorage.getItem("userID");
   return (
     <div
       className="modal show"
-      style={{ display: "block", position: "initial" }}
-    >
+      style={{ display: "block" }}
+     
+     >
       <Modal.Dialog>
-        <Modal.Header closeButton>
+
+        <Modal.Header closeButton onClick={() => {setSellModal(false)}}>
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
 
@@ -111,7 +114,7 @@ const userID = window.localStorage.getItem("userID");
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary">Exit Trade</Button>
+          <Button variant="secondary" onClick={() => {setSellModal(false)}}>Exit Trade</Button>
           {trade.quantity && trade.purchase_price && trade.stock_id ? (
             <Button variant="primary" onClick={confirmPosition}>
               Confirm Position

@@ -47,7 +47,7 @@ const FetchAllHoldings = ({ stockPurchased }) => {
       <div>
       <Row className="align-items-center">
         <Col>
-          <div className="scrollable-div">
+          <div className="scrollable-div square border border-warning rounded">
             <h2> Trades Made</h2>
             {holdings ? (
               holdings.map((holding) => (
@@ -69,9 +69,9 @@ const FetchAllHoldings = ({ stockPurchased }) => {
           </div>
         </Col>
         <Col>
-          <div className="scrollable-div">
+          <div className="scrollable-div square border border-warning rounded">
             <h2> Current Holdings</h2>
-            {accPos.length > 0 ? (
+            {accPos.length > 0  ? (
               accPos.map((position) => (
                 <div key={position.id}>
                   <p>

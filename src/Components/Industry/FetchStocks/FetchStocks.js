@@ -108,16 +108,19 @@ const FetchAllStocksFromIndustry = ({
             </p>
           </div>
         ) : null}
-
+        </div>
         {buyModal ? (
-          <BuyStock
+          <div >
+          <BuyStock 
             overviewData={overviewData}
             industryStocks={industryStocks}
             setStockPurchased={setStockPurchased}
             stockPurchased={stockPurchased}
             setUpdatedBalance={setUpdatedBalance}
             updatedBalance={updatedBalance}
+            setBuyModal={setBuyModal}
           />
+          </div>
         ) : null}
         {sellModal ? (
           <SellStock
@@ -127,12 +130,13 @@ const FetchAllStocksFromIndustry = ({
             stockPurchased={stockPurchased}
             setUpdatedBalance={setUpdatedBalance}
             updatedBalance={updatedBalance}
+            setSellModal={setSellModal}
           />
         ) : null}
         {watchlistModal ? (
           <CreateWatchlist overviewData={overviewData} />
         ) : null}
-      </div>
+      
     </div>
   );
 };

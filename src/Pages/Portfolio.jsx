@@ -58,7 +58,7 @@ const Portfolio = ({ stockPurchased }) => {
     <Row>
      
       <Col>
-      <div className="scrollable-div">
+      <div className="scrollable-div square border border-warning rounded">
         <h2> Current Holdings</h2>
         {accPos.length > 0 ? (
           accPos.map((position) => (
@@ -76,10 +76,10 @@ const Portfolio = ({ stockPurchased }) => {
       </div>
       </Col>
 <Col>
-      <div className="scrollable-div">
+      <div className="scrollable-div square border border-warning rounded">
         {newsData
           ? newsData.feed.map((newsItem) => (
-              <div key={newsItem.id}>
+              <div key={newsItem.id} >
                 <a
                   href={newsItem.url}
                   target="_blank"

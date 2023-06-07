@@ -11,6 +11,7 @@ const BuyStock = ({
   setStockPurchased,
   setUpdatedBalance,
   updatedBalance,
+  setBuyModal
 }) => {
   const [overviewInfo, setOverviewInfo] = useState(overviewData);
   const industryData = industryStocks;
@@ -91,10 +92,11 @@ console.log("FINDMATCH", findMatch)
   return (
     <div
       className="modal show"
-      style={{ display: "block", position: "initial" }}
+      style={{ display: "block" }}
     >
-      <Modal.Dialog>
-        <Modal.Header closeButton>
+   
+      <Modal.Dialog >
+        <Modal.Header closeButton onClick={() => {setBuyModal(false)}}>
           <Modal.Title>Buy</Modal.Title>
         </Modal.Header>
 
@@ -114,7 +116,7 @@ console.log("FINDMATCH", findMatch)
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary">Exit Trade</Button>
+          <Button variant="secondary" onClick={() => {setBuyModal(false)}}>Exit Trade</Button>
           
           {trade.quantity && trade.purchase_price && trade.stock_id ? (
             <Button variant="primary" onClick={confirmPosition}>
@@ -128,6 +130,7 @@ console.log("FINDMATCH", findMatch)
           )}
         </Modal.Footer>
       </Modal.Dialog>
+     
     </div>
   );
 };
@@ -136,11 +139,6 @@ export default BuyStock;
 
 
 /* 
-Holdings is currently trade history, with a record of all the trades made 
-and at what price
-
-there needs to be another feature, where it collects all stocks of the same
-name and accumulates the total price/quantity of all the stocks.
 
 It also needs to signpost if it was a buy or sell.
 */
