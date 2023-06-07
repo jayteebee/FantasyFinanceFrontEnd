@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { getAllUserInfo, updateUserInfo } from "../../API/userAPI";
 import Button from "react-bootstrap/Button";
+import { Row, Col } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 
-const Balance = ({updatedBalance, setUpdatedBalance}) => {
+const Balance = ({ updatedBalance, setUpdatedBalance }) => {
   const [userInfo, setUserInfo] = useState("");
-  const userID =  window.localStorage.getItem("userID");
+  const userID = window.localStorage.getItem("userID");
 
   const [balance, setBalance] = useState("");
   const [managingBalance, setManagingBalance] = useState(false);
   const [amount, setAmount] = useState(0);
   const [showDeposit, setShowDeposit] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
-
 
   useEffect(() => {
     getAllUserInfo(userID)
@@ -59,38 +60,58 @@ const Balance = ({updatedBalance, setUpdatedBalance}) => {
 
   return (
     <div>
-      <div>Balance</div>
-      <div>
-        <Button onClick={Deposit}>+</Button>
-        <Button onClick={Withdraw}>-</Button>
+      <Row className="align-items-center">
+        <Col xs="auto">
+          <Button variant="outline-light" size="sm" onClick={Deposit}>
+            +
+          </Button>
+        </Col>
 
-        {userInfo &&
-          (managingBalance ? (
-            <div>
-              <form onSubmit={handleBalanceUpdate}>
-              {showDeposit &&
-                <input
-                  name="deposit"
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                />
-              }
-              {showWithdraw && 
-                <input
-                  name="withdraw"
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                />
-                }
-                <Button type="submit">Finalise</Button>
-              </form>
-            </div>
-          ) : (
-            <div> {userInfo.balance} </div>
-          ))}
-      </div>
+        <Col xs="auto">
+          {userInfo &&
+            (managingBalance ? (
+              <div>
+                <Form onSubmit={handleBalanceUpdate} className="d-flex">
+               
+                  {showDeposit && (
+                    <Form.Control
+                      name="deposit"
+                      type="number"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      size="sm"
+                    />
+                  )}
+                  {showWithdraw && (
+                    <Form.Control
+                      name="withdraw"
+                      type="number"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      size="sm"
+                      style={{
+                        backgroundColor: "black",
+                        color: "gold",
+                        borderColor: "white",
+                        borderWidth: "1px"
+                      }}
+                    />
+                  )}
+                  <Button type="submit" variant="outline-light" size="sm">Finalise</Button>
+                 
+                </Form>
+              </div>
+            ) : (
+              <div> ${userInfo.balance} </div>
+            ))}
+        </Col>
+
+        <Col xs="auto">
+          <Button variant="outline-light" size="sm" onClick={Withdraw}>
+            -
+          </Button>
+        </Col>
+      </Row>
     </div>
   );
 };

@@ -4,6 +4,8 @@ import { overview } from "../../../API/AlphaVantage/fundamentalDataAPI";
 import BuyStock from "../../Transactions/BuyStock";
 import SellStock from "../../Transactions/SellStock";
 import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
+import { Row, Col } from "react-bootstrap";
 import CreateWatchlist from "../../Watchlist/CreateWatchlist";
 
 const FetchAllStocksFromIndustry = ({
@@ -58,14 +60,17 @@ const FetchAllStocksFromIndustry = ({
     setBuyModal(false);
     setWatchlistModal(true);
   };
-
+debugger;
   return (
     <div>
-      <div className="scrollable-div">
+    <Row>
+      <div className="half-scrollable-div">
         {industryStocks
           ? industryStocks.map((stock) => (
               <div key={stock.id}>
-                <Button onClick={() => overviewAPICall(stock.symbol)}>
+                <Button
+                variant="outline-light" size="sm"
+                onClick={() => overviewAPICall(stock.symbol)}>
                   {stock.company_name}
                   &nbsp;|&nbsp;
                   {stock.symbol}
@@ -73,8 +78,11 @@ const FetchAllStocksFromIndustry = ({
               </div>
             ))
           : null}
+
       </div>
 
+
+<div className="half-scrollable-div">
       {overviewData ? (
         <div>
           <h2>{overviewData.Name}</h2>
@@ -100,9 +108,9 @@ const FetchAllStocksFromIndustry = ({
           </p>
         </div>
       ) : (
-        <div>No Stocks Found</div>
+        null
       )}
-
+      
       {buyModal ? (
         <BuyStock
           overviewData={overviewData}
@@ -124,7 +132,10 @@ const FetchAllStocksFromIndustry = ({
         />
       ) : null}
       {watchlistModal ? <CreateWatchlist overviewData={overviewData} /> : null}
-    </div>
+    
+      </div>
+    </Row>
+      </div>
   );
 };
 

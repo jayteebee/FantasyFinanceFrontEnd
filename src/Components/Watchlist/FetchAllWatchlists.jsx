@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Row, Col } from "react-bootstrap";
 import {
   getAllUserWatchlists,
   getStocksFromWatchlist,
@@ -11,6 +12,8 @@ import {
   cashFlow,
   earnings,
 } from "../../API/AlphaVantage/fundamentalDataAPI";
+import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+ import "../../App.css"
 
 const FetchAllWatchlists = () => {
   const [watchlists, setWatchlists] = useState(null);
@@ -74,166 +77,360 @@ const FetchAllWatchlists = () => {
 
   return (
     <div>
-      <h2>Watchlists And Analysis</h2>
-      {watchlists ? (
-        watchlists.map((watchlist) => (
-          <div key={`watchlist-${watchlist.id}`}>
-            <Button
-              onClick={() => {
-                showWatchlistStocks(watchlist.id);
-              }}
-            >
-              {watchlist.name}
-            </Button>
-          </div>
-        ))
-      ) : (
-        <p>Make Watchlists!</p>
-      )}
-
-      {showStocks
-        ? watchlistStocks.map((stock) => (
-            <div key={`stock-${stock.id}`}>
-              Name: {stock.company_name}
-              Ticker Symbol: {stock.symbol}
-              <Button onClick={() => showAnalysis(stock.symbol)}>
-                Analysis
+      <Row>
+        <h2>Watchlists And Analysis</h2>
+        {watchlists ? (
+          watchlists.map((watchlist) => (
+            <div key={`watchlist-${watchlist.id}`}>
+              <Button
+                variant="outline-light"
+                size="sm"
+                onClick={() => {
+                  showWatchlistStocks(watchlist.id);
+                }}
+              >
+                {watchlist.name}
               </Button>
             </div>
           ))
-        : null}
+        ) : (
+          <p>Make Watchlists!</p>
+        )}
+        <div style={{ width: "25%", overflow: "auto" }}>
+          {showStocks
+            ? watchlistStocks.map((stock) => (
+                <div key={`stock-${stock.id}`}>
 
-      <div>
-        <div>
-          {showAnalysisData
-            ? [
-                analysisIncomeStatement.annualReports.reduce(
-                  (a, c) => (a.fiscalDateEnding > c.fiscalDateEnding ? a : c),
-                  {}
-                ),
-              ].map((report) => (
-                <div key={`income-statement-${report.id}`}>
-                  <h2>Income Statement</h2>
-                  Gross Profit: {report.grossProfit} <br />
-                  Total Revenue: {report.totalRevenue} <br />
-                  Cost Of Revenue: {report.costOfRevenue} <br />
-                  Cost Of Goods And Services Sold:{" "}
-                  {report.costofGoodsAndServicesSold} <br />
-                  Operating Income: {report.operatingIncome} <br />
-                  Selling General And Administrative:{" "}
-                  {report.sellingGeneralAndAdministrative} <br />
-                  Research And Development: {report.researchAndDevelopment}{" "}
-                  <br />
-                  Operating Expenses: {report.operatingExpenses} <br />
-                  Investment Income Net: {report.investmentIncomeNet} <br />
-                  Net Interest Income: {report.netInterestIncome} <br />
-                  Interest Income: {report.interestIncome} <br />
-                  Interest Expense: {report.interestExpense} <br />
-                  Non Interest Income: {report.nonInterestIncome} <br />
-                  Other Non Operating Income: {
-                    report.otherNonOperatingIncome
-                  }{" "}
-                  <br />
-                  Depreciation: {report.depreciation} <br />
-                  Depreciation And Amortization:{" "}
-                  {report.depreciationAndAmortization} <br />
-                  Income Before Tax: {report.incomeBeforeTax} <br />
-                  Income Tax Expense: {report.incomeTaxExpense} <br />
-                  Interest And Debt Expense: {
-                    report.interestAndDebtExpense
-                  }{" "}
-                  <br />
-                  Net Income From Continuing Operations:{" "}
-                  {report.netIncomeFromContinuingOperations} <br />
-                  Comprehensive Income Net Of Tax:{" "}
-                  {report.comprehensiveIncomeNetOfTax} <br />
-                  EBIT: {report.ebit} <br />
-                  EBITDA: {report.ebitda} <br />
-                  Net Income: {report.netIncome} <br />
+
+                  <MDBTable responsive bordered borderColor="primary" small align="middle" className='table-dark square border border-white'>
+                    <MDBTableHead>
+                      <tr>
+                        <th scope='col'>Name</th>
+                        <th scope='col'>Ticker Symbol</th>
+                        <th scope='col'>Analysis</th>
+                      </tr>
+                    </MDBTableHead>
+                    <MDBTableBody>
+                      <tr>
+                        <th scope='row'>{stock.company_name}</th>
+                        <td>{stock.symbol}</td>
+                        <td>
+                          <Button
+                            variant="outline-light"
+                            size="sm"
+                            onClick={() => showAnalysis(stock.symbol)}
+                          >
+                            Analysis
+                          </Button>
+                        </td>
+                      </tr>
+                    </MDBTableBody>
+                  </MDBTable>
+
+
                 </div>
               ))
             : null}
         </div>
 
-        <div>
-          {showAnalysisData
-            ? [
-                analysisBalanceSheet.annualReports.reduce(
-                  (a, c) => (a.fiscalDateEnding > c.fiscalDateEnding ? a : c),
-                  {}
-                ),
-              ].map((report) => (
-                <div key={`report-${report.fiscalDateEnding}`}>
-                  <h2>Balance Sheet</h2>
-                  Reported Currency: {report.reportedCurrency} <br />
-                  Total Assets: {report.totalAssets} <br />
-                  Total Current Assets: {report.totalCurrentAssets} <br />
-                  Cash And Cash Equivalents At Carrying Value:{" "}
-                  {report.cashAndCashEquivalentsAtCarryingValue} <br />
-                  Cash And Short Term Investments:{" "}
-                  {report.cashAndShortTermInvestments} <br />
-                  Inventory: {report.inventory} <br />
-                  Current Net Receivables: {report.currentNetReceivables} <br />
-                  Total Non Current Assets: {report.totalNonCurrentAssets}{" "}
-                  <br />
-                  Property Plant Equipment: {report.propertyPlantEquipment}{" "}
-                  <br />
-                  Accumulated Depreciation Amortization PPE:{" "}
-                  {report.accumulatedDepreciationAmortizationPPE} <br />
-                  Intangible Assets: {report.intangibleAssets} <br />
-                  Intangible Assets Excluding Goodwill:{" "}
-                  {report.intangibleAssetsExcludingGoodwill} <br />
-                  Goodwill: {report.goodwill} <br />
-                  Investments: {report.investments} <br />
-                  Long Term Investments: {report.longTermInvestments} <br />
-                  Short Term Investments: {report.shortTermInvestments} <br />
-                  Other Current Assets: {report.otherCurrentAssets} <br />
-                  Other Non Current Assets: {report.otherNonCurrentAssets}{" "}
-                  <br />
-                  Total Liabilities: {report.totalLiabilities} <br />
-                  Total Current Liabilities: {
-                    report.totalCurrentLiabilities
-                  }{" "}
-                  <br />
-                  Current Accounts Payable: {report.currentAccountsPayable}{" "}
-                  <br />
-                  Deferred Revenue: {report.deferredRevenue} <br />
-                  Current Debt: {report.currentDebt} <br />
-                  Short Term Debt: {report.shortTermDebt} <br />
-                  Total Non Current Liabilities:{" "}
-                  {report.totalNonCurrentLiabilities} <br />
-                  Capital Lease Obligations: {
-                    report.capitalLeaseObligations
-                  }{" "}
-                  <br />
-                  Long Term Debt: {report.longTermDebt} <br />
-                  Current Long Term Debt: {report.currentLongTermDebt} <br />
-                  Long Term Debt Noncurrent: {
-                    report.longTermDebtNoncurrent
-                  }{" "}
-                  <br />
-                  Short Long Term Debt Total: {
-                    report.shortLongTermDebtTotal
-                  }{" "}
-                  <br />
-                  Other Current Liabilities: {
-                    report.otherCurrentLiabilities
-                  }{" "}
-                  <br />
-                  Other Non Current Liabilities:{" "}
-                  {report.otherNonCurrentLiabilities} <br />
-                  Total Shareholder Equity: {report.totalShareholderEquity}{" "}
-                  <br />
-                  Treasury Stock: {report.treasuryStock} <br />
-                  Retained Earnings: {report.retainedEarnings} <br />
-                  Common Stock: {report.commonStock} <br />
-                  Common Stock Shares Outstanding:{" "}
-                  {report.commonStockSharesOutstanding} <br />
-                </div>
-              ))
-            : null}
+        <div className="scrollable-div">
+          <div>
+            {showAnalysisData
+              ? [
+                  analysisIncomeStatement.annualReports.reduce(
+                    (a, c) => (a.fiscalDateEnding > c.fiscalDateEnding ? a : c),
+                    {}
+                  ),
+                ].map((report) => (
+                  <div key={`income-statement-${report.id}`}>
+                    <h2>Income Statement</h2>
+                    <MDBTable responsive bordered borderColor="primary" small align="middle" className='table-dark square border border-white'>
+  <MDBTableHead>
+    <tr>
+      <th scope='col'>Identifier</th>
+      <th scope='col'>Data</th>
+    </tr>
+  </MDBTableHead>
+  <MDBTableBody>
+    <tr>
+      <td>Gross Profit</td>
+      <td>{report.grossProfit}</td>
+    </tr>
+    <tr>
+      <td>Total Revenue</td>
+      <td>{report.totalRevenue}</td>
+    </tr>
+    <tr>
+      <td>Cost Of Revenue</td>
+      <td>{report.costOfRevenue}</td>
+    </tr>
+    <tr>
+      <td>Cost Of Goods And Services Sold</td>
+      <td>{report.costofGoodsAndServicesSold}</td>
+    </tr>
+    <tr>
+      <td>Operating Income</td>
+      <td>{report.operatingIncome}</td>
+    </tr>
+    <tr>
+      <td>Selling General And Administrative</td>
+      <td>{report.sellingGeneralAndAdministrative}</td>
+    </tr>
+    <tr>
+      <td>Research And Development</td>
+      <td>{report.researchAndDevelopment}</td>
+    </tr>
+    <tr>
+      <td>Operating Expenses</td>
+      <td>{report.operatingExpenses}</td>
+    </tr>
+    <tr>
+      <td>Investment Income Net</td>
+      <td>{report.investmentIncomeNet}</td>
+    </tr>
+    <tr>
+      <td>Net Interest Income</td>
+      <td>{report.netInterestIncome}</td>
+    </tr>
+    <tr>
+      <td>Interest Income</td>
+      <td>{report.interestIncome}</td>
+    </tr>
+    <tr>
+      <td>Interest Expense</td>
+      <td>{report.interestExpense}</td>
+    </tr>
+    <tr>
+      <td>Non Interest Income</td>
+      <td>{report.nonInterestIncome}</td>
+    </tr>
+    <tr>
+      <td>Other Non Operating Income</td>
+      <td>{report.otherNonOperatingIncome}</td>
+    </tr>
+    <tr>
+      <td>Depreciation</td>
+      <td>{report.depreciation}</td>
+    </tr>
+    <tr>
+      <td>Depreciation And Amortization</td>
+      <td>{report.depreciationAndAmortization}</td>
+    </tr>
+    <tr>
+      <td>Income Before Tax</td>
+      <td>{report.incomeBeforeTax}</td>
+    </tr>
+    <tr>
+      <td>Income Tax Expense</td>
+      <td>{report.incomeTaxExpense}</td>
+    </tr>
+    <tr>
+      <td>Interest And Debt Expense</td>
+      <td>{report.interestAndDebtExpense}</td>
+    </tr>
+    <tr>
+      <td>Net Income From Continuing Operations</td>
+      <td>{report.netIncomeFromContinuingOperations}</td>
+    </tr>
+    <tr>
+      <td>Comprehensive Income Net Of Tax</td>
+      <td>{report.comprehensiveIncomeNetOfTax}</td>
+    </tr>
+    <tr>
+      <td>EBIT</td>
+      <td>{report.ebit}</td>
+    </tr>
+    <tr>
+      <td>EBITDA</td>
+      <td>{report.ebitda}</td>
+    </tr>
+    <tr>
+      <td>Net Income</td>
+      <td>{report.netIncome}</td>
+    </tr>
+  </MDBTableBody>
+</MDBTable>
+
+                  </div>
+                ))
+              : null}
+          </div>
+
+          <div>
+            {showAnalysisData
+              ? [
+                  analysisBalanceSheet.annualReports.reduce(
+                    (a, c) => (a.fiscalDateEnding > c.fiscalDateEnding ? a : c),
+                    {}
+                  ),
+                ].map((report) => (
+                  <div key={`report-${report.fiscalDateEnding}`}>
+                    <h2>Balance Sheet</h2>
+                    <MDBTable responsive bordered borderColor="primary" small align="middle" className='table-dark square border border-white'>
+  <MDBTableHead>
+    <tr>
+      <th scope='col'>Identifier</th>
+      <th scope='col'>Data</th>
+    </tr>
+  </MDBTableHead>
+  <MDBTableBody>
+    <tr>
+      <td>Reported Currency</td>
+      <td>{report.reportedCurrency}</td>
+    </tr>
+    <tr>
+      <td>Total Assets</td>
+      <td>{report.totalAssets}</td>
+    </tr>
+    <tr>
+      <td>Total Current Assets</td>
+      <td>{report.totalCurrentAssets}</td>
+    </tr>
+    <tr>
+      <td>Cash And Cash Equivalents At Carrying Value</td>
+      <td>{report.cashAndCashEquivalentsAtCarryingValue}</td>
+    </tr>
+    <tr>
+      <td>Cash And Short Term Investments</td>
+      <td>{report.cashAndShortTermInvestments}</td>
+    </tr>
+    <tr>
+      <td>Inventory</td>
+      <td>{report.inventory}</td>
+    </tr>
+    <tr>
+      <td>Current Net Receivables</td>
+      <td>{report.currentNetReceivables}</td>
+    </tr>
+    <tr>
+      <td>Total Non Current Assets</td>
+      <td>{report.totalNonCurrentAssets}</td>
+    </tr>
+    <tr>
+      <td>Property Plant Equipment</td>
+      <td>{report.propertyPlantEquipment}</td>
+    </tr>
+    <tr>
+      <td>Accumulated Depreciation Amortization PPE</td>
+      <td>{report.accumulatedDepreciationAmortizationPPE}</td>
+    </tr>
+    <tr>
+      <td>Intangible Assets</td>
+      <td>{report.intangibleAssets}</td>
+    </tr>
+    <tr>
+      <td>Intangible Assets Excluding Goodwill</td>
+      <td>{report.intangibleAssetsExcludingGoodwill}</td>
+    </tr>
+    <tr>
+      <td>Goodwill</td>
+      <td>{report.goodwill}</td>
+    </tr>
+    <tr>
+      <td>Investments</td>
+      <td>{report.investments}</td>
+    </tr>
+    <tr>
+      <td>Long Term Investments</td>
+      <td>{report.longTermInvestments}</td>
+    </tr>
+    <tr>
+      <td>Short Term Investments</td>
+      <td>{report.shortTermInvestments}</td>
+    </tr>
+    <tr>
+      <td>Other Current Assets</td>
+      <td>{report.otherCurrentAssets}</td>
+    </tr>
+    <tr>
+      <td>Other Non Current Assets</td>
+      <td>{report.otherNonCurrentAssets}</td>
+    </tr>
+    <tr>
+      <td>Total Liabilities</td>
+      <td>{report.totalLiabilities}</td>
+    </tr>
+    <tr>
+      <td>Total Current Liabilities</td>
+      <td>{report.totalCurrentLiabilities}</td>
+    </tr>
+    <tr>
+      <td>Current Accounts Payable</td>
+      <td>{report.currentAccountsPayable}</td>
+    </tr>
+    <tr>
+      <td>Deferred Revenue</td>
+      <td>{report.deferredRevenue}</td>
+    </tr>
+    <tr>
+      <td>Current Debt</td>
+      <td>{report.currentDebt}</td>
+    </tr>
+    <tr>
+      <td>Short Term Debt</td>
+      <td>{report.shortTermDebt}</td>
+    </tr>
+    <tr>
+      <td>Total Non Current Liabilities</td>
+      <td>{report.totalNonCurrentLiabilities}</td>
+    </tr>
+    <tr>
+      <td>Capital Lease Obligations</td>
+      <td>{report.capitalLeaseObligations}</td>
+    </tr>
+    <tr>
+      <td>Long Term Debt</td>
+      <td>{report.longTermDebt}</td>
+    </tr>
+    <tr>
+      <td>Current Long Term Debt</td>
+      <td>{report.currentLongTermDebt}</td>
+    </tr>
+    <tr>
+      <td>Long Term Debt Noncurrent</td>
+      <td>{report.longTermDebtNoncurrent}</td>
+    </tr>
+    <tr>
+      <td>Short Long Term Debt Total</td>
+      <td>{report.shortLongTermDebtTotal}</td>
+    </tr>
+    <tr>
+      <td>Other Current Liabilities</td>
+      <td>{report.otherCurrentLiabilities}</td>
+    </tr>
+    <tr>
+      <td>Other Non Current Liabilities</td>
+      <td>{report.otherNonCurrentLiabilities}</td>
+    </tr>
+    <tr>
+      <td>Total Shareholder Equity</td>
+      <td>{report.totalShareholderEquity}</td>
+    </tr>
+    <tr>
+      <td>Treasury Stock</td>
+      <td>{report.treasuryStock}</td>
+    </tr>
+    <tr>
+      <td>Retained Earnings</td>
+      <td>{report.retainedEarnings}</td>
+    </tr>
+    <tr>
+      <td>Common Stock</td>
+      <td>{report.commonStock}</td>
+    </tr>
+    <tr>
+      <td>Common Stock Shares Outstanding</td>
+      <td>{report.commonStockSharesOutstanding}</td>
+    </tr>
+  </MDBTableBody>
+</MDBTable>
+
+                  </div>
+                ))
+              : null}
+          </div>
         </div>
-      </div>
+      </Row>
     </div>
   );
 };

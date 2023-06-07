@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
+import { Row, Col } from "react-bootstrap";
+
+
 
 const FetchSpecificIndustries = ({ industries, onIndustrySelect }) => {
   const [input, setInput] = useState("");
@@ -24,15 +29,27 @@ const FetchSpecificIndustries = ({ industries, onIndustrySelect }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Row className="align-items-center">
+   
+      <Form onSubmit={handleSubmit} className="d-flex">
+
+       <Col xs="auto">
+        <Form.Control
           type="text"
           value={input}
           placeholder="Search Industry"
           onChange={handleChange}
+          size="sm"
         />
-        <input type="submit" value="Submit" />
-      </form>
+        </Col>
+
+<Col xs="auto">
+        <Button type="submit" variant="outline-light" size="sm" value="Submit">Search</Button>
+        </Col>
+
+        </Form>
+
+      </Row>
     </div>
   );
 };

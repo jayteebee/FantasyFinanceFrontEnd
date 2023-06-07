@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+
 import { createHolding } from "../../API/holdingAPI";
 import { timeSeriesIntraday } from "../../API/AlphaVantage/coreDataAPI";
 import { getAllUserInfo, updateUserInfo } from "../../API/userAPI";
-
+import Modal from "react-bootstrap/Modal";
 const BuyStock = ({
   overviewData,
   industryStocks,
@@ -17,7 +17,7 @@ const BuyStock = ({
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(null);
   const userID = window.localStorage.getItem("userID");
-
+console.log("industryStocks***",industryData)
   const [balance, setBalance] = useState(0);
   const [updatingBalance, setUpdatingBalance] = useState(0);
 
@@ -34,7 +34,7 @@ const BuyStock = ({
     (name) => name.company_name === overviewInfo.Name
   );
   const stock = findMatch.id;
-
+console.log("FINDMATCH", findMatch)
   let positionSize = quantity * price;
 
 
@@ -63,7 +63,7 @@ const BuyStock = ({
   };
 
   const confirmPosition = async () => {
-    debugger;
+    
     const holding = await createHolding(userID, trade);
     console.log("CH: ", holding);
     setTrade({

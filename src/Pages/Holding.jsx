@@ -4,7 +4,6 @@ import FetchAllHoldings from "../Components/Holdings/FetchAllHoldings"
 const Holding = ({stockPurchased}) => {
   return (
     <div>
-    <div>Holding</div>
     <FetchAllHoldings
     stockPurchased={stockPurchased}
     />

@@ -1,4 +1,6 @@
-
+body {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
 
 .background {
   height: 100vh;
@@ -9,4 +11,18 @@
 .scrollable-div {
   height: 75vh; 
   overflow-y: auto;
+}
+
+.half-scrollable-div {
+  height: 50vh; 
+  overflow-y: auto;
+}
+
+.quarter-scrollable-div {
+  height: 25vh; 
+  overflow-y: auto;
+}
+
+.table {
+  width: 25vh
 }

@@ -3,8 +3,13 @@ import { getAllIndustries } from "../../../API/industryAPI";
 import IndustryList from "./IndustryList";
 import FetchSpecificIndustry from "../FetchSpecific/FetchSpecificIndustry";
 import FetchStocks from "../FetchStocks/FetchStocks";
+import { Row,Col } from "react-bootstrap";
 
-const FetchAllIndustries = ({ onIndustrySelect, setStockPurchased, stockPurchased}) => {
+const FetchAllIndustries = ({
+  onIndustrySelect,
+  setStockPurchased,
+  stockPurchased,
+}) => {
   const [industries, setIndustries] = useState(null);
   const [selectedIndustry, setSelectedIndustry] = useState(null);
 
@@ -22,18 +27,23 @@ const FetchAllIndustries = ({ onIndustrySelect, setStockPurchased, stockPurchase
 
   return (
     <div>
+<Row>
+    <h2>Industries</h2>
+    <FetchSpecificIndustry
+        industries={industries}
+        onIndustrySelect={onIndustrySelect}
+      />
       <IndustryList
         industries={industries}
         onIndustrySelect={onIndustrySelect}
       />
-      <FetchSpecificIndustry
-        industries={industries}
-        onIndustrySelect={onIndustrySelect}
+      
+      <FetchStocks
+        industry={selectedIndustry}
+        setStockPurchased={setStockPurchased}
+        stockPurchased={stockPurchased}
       />
-      <FetchStocks industry={selectedIndustry}
-      setStockPurchased={setStockPurchased}
-      stockPurchased={stockPurchased}
-      />
+</Row>
     </div>
   );
 };

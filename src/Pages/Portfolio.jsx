@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAllUserHoldings } from "../API/holdingAPI";
 import { news } from "../API/AlphaVantage/fundamentalDataAPI";
+import { Row, Col } from "react-bootstrap";
 import "../App.css";
 
 const Portfolio = ({ stockPurchased }) => {
@@ -51,12 +52,13 @@ const Portfolio = ({ stockPurchased }) => {
       })
       .catch((err) => console.log("API Call Failed", err));
   }, []);
-console.log("NEWS DATA: ",newsData);
+
   return (
     <div>
-      <div>Portfolio</div>
-
-      <div>
+    <Row>
+     
+      <Col>
+      <div className="scrollable-div">
         <h2> Current Holdings</h2>
         {accPos.length > 0 ? (
           accPos.map((position) => (
@@ -72,20 +74,26 @@ console.log("NEWS DATA: ",newsData);
           <div>No Position Found</div>
         )}
       </div>
-
-      <div>
-      {newsData 
-        ?  newsData.feed.map((newsItem) => (
-          <div key={newsItem.id} >
-            <a href={newsItem.url} target="_blank" rel="noopener noreferrer">{newsItem.title}</a><br />
-
-
-
-          </div>
-        )) : null
-      }
-        
+      </Col>
+<Col>
+      <div className="scrollable-div">
+        {newsData
+          ? newsData.feed.map((newsItem) => (
+              <div key={newsItem.id}>
+                <a
+                  href={newsItem.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {newsItem.title}
+                </a>
+                <br />
+              </div>
+            ))
+          : null}
       </div>
+      </Col>
+      </Row>
     </div>
   );
 };
