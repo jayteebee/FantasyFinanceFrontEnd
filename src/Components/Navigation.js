@@ -31,9 +31,7 @@ const Navigation = ({ updatedBalance, setUpdatedBalance }) => {
                 Watchlists And Analysis
               </Nav.Link>
 
-              <Nav.Link href="/login" style={{ color: "#fbbf24" }}>
-                Sign Up / Sign In
-              </Nav.Link>
+              
             </Nav>
             <Nav>
               <Balance

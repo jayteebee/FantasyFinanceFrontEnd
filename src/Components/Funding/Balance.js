@@ -14,6 +14,7 @@ const Balance = ({ updatedBalance, setUpdatedBalance }) => {
   const [showDeposit, setShowDeposit] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
 
+
   useEffect(() => {
     getAllUserInfo(userID)
       .then((data) => {

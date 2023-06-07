@@ -14,7 +14,7 @@ const logOut = () => {
 deleteUser(userID)
 navigate("/login");
 setUpdatedBalance((prevState) => !prevState);
-setShowRegister(false)
+setShowRegister(true)
 }
 
   return (
