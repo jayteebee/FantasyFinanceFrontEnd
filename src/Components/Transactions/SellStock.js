@@ -11,9 +11,9 @@ const SellStock = ({
   setStockPurchased,
   setUpdatedBalance,
   updatedBalance,
-  setSellModal
+  setSellModal,
 }) => {
-const userID = window.localStorage.getItem("userID");
+  const userID = window.localStorage.getItem("userID");
 
   const [overviewInfo, setOverviewInfo] = useState(overviewData);
   const industryData = industryStocks;
@@ -55,7 +55,7 @@ const userID = window.localStorage.getItem("userID");
 
   const openPosition = async () => {
     setTrade({
-      quantity: - quantity,
+      quantity: -quantity,
       purchase_price: positionSize,
       stock_id: stock,
     });
@@ -87,18 +87,29 @@ const userID = window.localStorage.getItem("userID");
   };
 
   return (
-    <div
-      className="modal show"
-      style={{ display: "block" }}
-     
-     >
+    <div className="modal show" style={{ display: "block" }}>
+    <div className="p-5 ">
+        <div className="me-1 ">
       <Modal.Dialog>
-
-        <Modal.Header closeButton onClick={() => {setSellModal(false)}}>
+        <Modal.Header
+        className="formBackground"
+          closeButton
+          onClick={() => {
+            setSellModal(false);
+          }}
+        >
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body
+        className="formBackground"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+        >
           <h5>{overviewInfo.Name}</h5>
           <p>{overviewInfo.Symbol}</p>
           <h5>{overviewInfo.Exchange}</h5>
@@ -113,22 +124,37 @@ const userID = window.localStorage.getItem("userID");
           Position Size: ${positionSize}
         </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => {setSellModal(false)}}>Exit Trade</Button>
+        <Modal.Footer
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+        >
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setSellModal(false);
+            }}
+          >
+            Exit Trade
+          </Button>
           {trade.quantity && trade.purchase_price && trade.stock_id ? (
             <Button variant="primary" onClick={confirmPosition}>
               Confirm Position
             </Button>
           ) : (
-            <Button variant="primary" onClick={openPosition}>
+            <Button variant="success" onClick={openPosition}>
               {" "}
-              Open Position
+              Close Position
             </Button>
           )}
         </Modal.Footer>
       </Modal.Dialog>
+      </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default SellStock
+export default SellStock;

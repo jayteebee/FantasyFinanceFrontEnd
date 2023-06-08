@@ -134,7 +134,9 @@ const FetchAllStocksFromIndustry = ({
           />
         ) : null}
         {watchlistModal ? (
-          <CreateWatchlist overviewData={overviewData} />
+          <CreateWatchlist overviewData={overviewData}
+          setWatchlistModal={setWatchlistModal}
+          />
         ) : null}
       
     </div>

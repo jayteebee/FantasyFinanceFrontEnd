@@ -43,52 +43,66 @@ const FetchAllHoldings = ({ stockPurchased }) => {
   };
 
   return (
-    
-      <div>
+    <div>
       <Row className="align-items-center">
         <Col>
-          <div className="scrollable-div square border border-warning rounded">
-            <h2> Trades Made</h2>
-            {holdings ? (
-              holdings.map((holding) => (
-                <div key={holding.id}>
-                  Name:
-                  <button>
-                    {holding.stock.company_name} | {holding.stock.symbol}
-                  </button>{" "}
-                  <br />
-                  Quantity: {holding.quantity} <br />
-                  Purchase Price: {holding.purchase_price} <br />
-                  Trade Executed At: {holding.created_at} <br />
-                  <br />
+          <div className="p-5">
+            <div className="me-1">
+              <div className="scrollable-div square border border-warning rounded p-5">
+                <h2> Trades Made</h2>
+                <div className="d-grid gap-3">
+                  {holdings ? (
+                    holdings.map((holding) => (
+                      <div key={holding.id}
+                      className="p-2 border"
+                      >
+                        Name: &nbsp;
+                        
+                          {holding.stock.company_name} | {holding.stock.symbol}
+                       
+                        <br />
+                        Quantity: {holding.quantity} <br />
+                        Purchase Price: {holding.purchase_price} <br />
+                        Trade Executed At: {holding.created_at} <br />
+                        <br />
+                      </div>
+                    ))
+                  ) : (
+                    <p>Make trades!</p>
+                  )}
                 </div>
-              ))
-            ) : (
-              <p>Make trades!</p>
-            )}
+              </div>
+            </div>
           </div>
         </Col>
+
         <Col>
-          <div className="scrollable-div square border border-warning rounded">
-            <h2> Current Holdings</h2>
-            {accPos.length > 0  ? (
-              accPos.map((position) => (
-                <div key={position.id}>
-                  <p>
-                    {position.stock.company_name} | {position.stock.symbol}
-                  </p>
-                  <p>Quantity: {position.quantity}</p>
-                  <p>Purchase Price: {position.purchase_price}</p>
+          <div className="p-5">
+            <div className="me-1">
+              <div className="scrollable-div square border border-warning rounded p-5">
+                <h2> Current Holdings</h2>
+                <div className="d-grid gap-3">
+                  {accPos.length > 0 ? (
+                    accPos.map((position) => (
+                      <div key={position.id} className="p-2 border">
+                        <p>
+                          {position.stock.company_name} |{" "}
+                          {position.stock.symbol}
+                        </p>
+                        <p>Quantity: {position.quantity}</p>
+                        <p>Purchase Price: {position.purchase_price}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <div>No Position Found</div>
+                  )}
                 </div>
-              ))
-            ) : (
-              <div>No Position Found</div>
-            )}
+              </div>
+            </div>
           </div>
         </Col>
-        </Row>
-      </div>
-    
+      </Row>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ body {
 }
 
 .background {
-  height: 100vh;
+  height: 500vh;
     background-color: #334155;
   color: #fbbf24; 
 }
@@ -25,4 +25,8 @@ body {
 
 .table {
   width: 25vh
+}
+
+.formBackground {
+  background-color: #202529;
 }

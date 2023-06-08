@@ -4,6 +4,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import FetchWatchlistOnly from "../../Watchlist/FetchWatchlistOnly";
 import { Row, Col } from "react-bootstrap";
 
+
 const IndustryList = ({ industries, onIndustrySelect }) => {
   if (!industries) {
     return <div>Loading...</div>;

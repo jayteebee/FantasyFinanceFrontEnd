@@ -108,7 +108,7 @@ const SignUpSignIn = ({ showRegister, setShowRegister }) => {
                   type="text"
                   value={input2.name}
                   name="name"
-                  placeholder="Username"
+                  placeholder="First Name"
                   onChange={handleChangeLI}
                   label="First name"
                 />
@@ -219,6 +219,7 @@ const SignUpSignIn = ({ showRegister, setShowRegister }) => {
 
             <MDBInput
               className="mb-4"
+              
               type="password"
               value={input.password}
               name="password"

@@ -11,14 +11,14 @@ const BuyStock = ({
   setStockPurchased,
   setUpdatedBalance,
   updatedBalance,
-  setBuyModal
+  setBuyModal,
 }) => {
   const [overviewInfo, setOverviewInfo] = useState(overviewData);
   const industryData = industryStocks;
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(null);
   const userID = window.localStorage.getItem("userID");
-console.log("industryStocks***",industryData)
+  console.log("industryStocks***", industryData);
   const [balance, setBalance] = useState(0);
   const [updatingBalance, setUpdatingBalance] = useState(0);
 
@@ -35,10 +35,8 @@ console.log("industryStocks***",industryData)
     (name) => name.company_name === overviewInfo.Name
   );
   const stock = findMatch.id;
-console.log("FINDMATCH", findMatch)
+  console.log("FINDMATCH", findMatch);
   let positionSize = quantity * price;
-
-
 
   const [trade, setTrade] = useState({
     quantity: null,
@@ -64,7 +62,6 @@ console.log("FINDMATCH", findMatch)
   };
 
   const confirmPosition = async () => {
-    
     const holding = await createHolding(userID, trade);
     console.log("CH: ", holding);
     setTrade({
@@ -88,55 +85,79 @@ console.log("FINDMATCH", findMatch)
     );
   };
 
-
   return (
-    <div
-      className="modal show"
-      style={{ display: "block" }}
-    >
-   
-      <Modal.Dialog >
-        <Modal.Header closeButton onClick={() => {setBuyModal(false)}}>
-          <Modal.Title>Buy</Modal.Title>
-        </Modal.Header>
+    <div className="modal show" style={{ display: "block" }}>
+      <div className="p-5 ">
+        <div className="me-1 ">
+          <Modal.Dialog>
+            <Modal.Header
+              className="formBackground"
+              closeButton
+              onClick={() => {
+                setBuyModal(false);
+              }}
+            >
+              <Modal.Title>Buy</Modal.Title>
+            </Modal.Header>
 
-        <Modal.Body>
-          <h5>{overviewInfo.Name}</h5>
-          <p>{overviewInfo.Symbol}</p>
-          <h5>{overviewInfo.Exchange}</h5>
-          <h5>${price}</h5>
-          Quantity:{" "}
-          <input
-            type="number"
-            name="quantity"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-          />
-          Position Size: ${positionSize}
-        </Modal.Body>
+            <Modal.Body
+              className="formBackground"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <h5>{overviewInfo.Name}</h5>
+              <p>{overviewInfo.Symbol}</p>
+              <h5>{overviewInfo.Exchange}</h5>
+              <h5>${price}</h5>
+              Quantity:{" "}
+              <input
+                type="number"
+                name="quantity"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+              Position Size: ${positionSize}
+            </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => {setBuyModal(false)}}>Exit Trade</Button>
-          
-          {trade.quantity && trade.purchase_price && trade.stock_id ? (
-            <Button variant="primary" onClick={confirmPosition}>
-              Confirm Position
-            </Button>
-          ) : (
-            <Button variant="primary" onClick={openPosition}>
-              {" "}
-              Open Position
-            </Button>
-          )}
-        </Modal.Footer>
-      </Modal.Dialog>
-     
+            <Modal.Footer
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setBuyModal(false);
+                }}
+              >
+                Exit Trade
+              </Button>
+
+              {trade.quantity && trade.purchase_price && trade.stock_id ? (
+                <Button variant="primary" onClick={confirmPosition}>
+                  Confirm Position
+                </Button>
+              ) : (
+                <Button variant="success" onClick={openPosition}>
+                  {" "}
+                  Open Position
+                </Button>
+              )}
+            </Modal.Footer>
+          </Modal.Dialog>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default BuyStock;
-
 
 /* 
 

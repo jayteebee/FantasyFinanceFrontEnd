@@ -5,7 +5,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { createWatchlist, addStockToWatchlist } from "../../API/watchlistAPI";
 import { getAllUserWatchlists } from "../../API/watchlistAPI";
 
-const CreateWatchlist = ({ overviewData }) => {
+const CreateWatchlist = ({ overviewData, setWatchlistModal }) => {
   const userID = window.localStorage.getItem("userID");
   const [overviewInfo, setOverviewInfo] = useState(overviewData);
   const [isEditing, setIsEditing] = useState(false);
@@ -61,69 +61,97 @@ const CreateWatchlist = ({ overviewData }) => {
   };
 
   return (
-    <div
-      className="modal show"
-      style={{ display: "block", position: "initial" }}
-    >
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>Watchlists</Modal.Title>
-        </Modal.Header>
+    <div className="modal show" style={{ display: "block" }}>
+      <div className="p-5 ">
+        <div className="me-1 ">
+          <Modal.Dialog >
+            <Modal.Header className="formBackground" 
+              closeButton
+              onClick={() => {
+                setWatchlistModal(false);
+              }}
+            >
+             
+            </Modal.Header>
 
-        <Modal.Body>
-          <h2>Create New Watchlist</h2>
+            <Modal.Body className="formBackground" style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}} >
+              <h2>Create New Watchlist</h2>
 
-          <h5>{overviewInfo.Name}</h5>
-          <p>{overviewInfo.Symbol}</p>
-          <h5>{overviewInfo.Exchange}</h5>
+              <h5>{overviewInfo.Name}</h5>
+              <p>{overviewInfo.Symbol}</p>
+              <h5>{overviewInfo.Exchange}</h5>
 
-          {isEditing ? (
-            <form onSubmit={handleAPICall}>
-              <input
-                name="name"
-                value={watchlistInfo.name}
-                placeholder="Enter Watchlist Name"
-                onChange={handleChange}
-              ></input>
-              <Button type="submit" variant="primary">
-                {" "}
-                Submit{" "}
+              {isEditing ? (
+                <form onSubmit={handleAPICall}>
+                  <input
+                    name="name"
+                    value={watchlistInfo.name}
+                    placeholder="Enter Watchlist Name"
+                    onChange={handleChange}
+                  ></input>
+                  <Button type="submit" variant="outline-light"
+                  size="sm">
+                    {" "}
+                    Submit{" "}
+                  </Button>
+                </form>
+              ) : (
+                <Button
+                variant="outline-light"
+                  size="sm"
+                onClick={editingClick}> Create Watchlist </Button>
+              )}
+
+              <h2>Add Stock To Watchlist</h2>
+              <Dropdown>
+                <Dropdown.Toggle variant="outline-light"
+                size="sm" id="dropdown-basic">
+                  Select Watchlist
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {watchlists
+                    ? watchlists.map((watchlist) => (
+                        <Dropdown.Item
+                          key={watchlist.id}
+                          onClick={() => setSelectedWatchlist(watchlist.id)}
+                        >
+                          {watchlist.name}
+                        </Dropdown.Item>
+                      ))
+                    : null}
+                </Dropdown.Menu>
+              </Dropdown>
+              <Button
+              variant="outline-success"
+                  size="sm"
+              onClick={() => saveStockToWatchlist(selectedWatchlist)}>
+                Save Stock To Watchlist
               </Button>
-            </form>
-          ) : (
-            <Button onClick={editingClick}> Create Watchlist </Button>
-          )}
+            </Modal.Body>
+            
+            <Modal.Footer style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setWatchlistModal(false);
+                }}
+              >
+                Exit
+              </Button>
 
-          <h2>Add Stock To Watchlist</h2>
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Select Watchlist
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {watchlists
-                ? watchlists.map((watchlist) => (
-                    <Dropdown.Item
-                      key={watchlist.id}
-                      onClick={() => setSelectedWatchlist(watchlist.id)}
-                    >
-                      {watchlist.name}
-                    </Dropdown.Item>
-                  ))
-                : null}
-            </Dropdown.Menu>
-          </Dropdown>
-          <Button onClick={() => saveStockToWatchlist(selectedWatchlist)}>
-            Save Stock To Watchlist
-          </Button>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary">Exit Trade</Button>
-
-          <Button variant="primary">Confirm Position</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
+              <Button
+                variant="success"
+                onClick={() => {
+                  setWatchlistModal(false);
+                }}
+              >
+                Confirm
+              </Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </div>
+      </div>
     </div>
   );
 };

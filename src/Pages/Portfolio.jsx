@@ -55,44 +55,61 @@ const Portfolio = ({ stockPurchased }) => {
 
   return (
     <div>
-    <Row>
-     
-      <Col>
-      <div className="scrollable-div square border border-warning rounded">
-        <h2> Current Holdings</h2>
-        {accPos.length > 0 ? (
-          accPos.map((position) => (
-            <div key={position.id}>
-              <p>
-                {position.stock.company_name} | {position.stock.symbol}
-              </p>
-              <p>Quantity: {position.quantity}</p>
-              <p>Purchase Price: {position.purchase_price}</p>
-            </div>
-          ))
-        ) : (
-          <div>No Position Found</div>
-        )}
-      </div>
-      </Col>
-<Col>
-      <div className="scrollable-div square border border-warning rounded">
-        {newsData
-          ? newsData.feed.map((newsItem) => (
-              <div key={newsItem.id} >
-                <a
-                  href={newsItem.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {newsItem.title}
-                </a>
-                <br />
+      <Row>
+        <Col>
+        <div className="p-5">
+          <div className="me-1">
+            <div className="scrollable-div square border border-warning rounded p-5" style={{height:"50vh"}}>
+              <h2> Current Holdings</h2>
+              <div className="d-grid gap-3">
+              {accPos.length > 0 ? (
+                accPos.map((position) => (
+                  <div key={position.id}
+                  className="p-2 border"
+                  >
+                    <p>
+                      {position.stock.company_name} | {position.stock.symbol}
+                    </p>
+                    <p>Quantity: {position.quantity}</p>
+                    <p>Purchase Price: {position.purchase_price}</p>
+                  </div>
+                ))
+              ) : (
+                <div>No Position Found</div>
+              )}
               </div>
-            ))
-          : null}
-      </div>
-      </Col>
+            </div>
+          </div>
+          </div>
+        </Col>
+        
+        <Col>
+        <div className=" p-5">
+          <div className="scrollable-div square border border-warning rounded p-5" style={{height:"50vh"}}>
+            <h2>News</h2>
+            <div className="d-grid gap-3">
+              {newsData
+                ? newsData.feed.map((newsItem) => (
+                    <div
+                      key={newsItem.id}
+                      className="p-2 border"
+                      
+                    >
+                      <a
+                        href={newsItem.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {newsItem.title}
+                      </a>
+                      <br />
+                    </div>
+                  ))
+                : null}
+            </div>
+          </div>
+         </div> 
+        </Col>
       </Row>
     </div>
   );

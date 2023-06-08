@@ -26,6 +26,7 @@ function App() {
         <Navigation
         setUpdatedBalance={setUpdatedBalance}
             updatedBalance={updatedBalance}
+            setShowRegister={setShowRegister}
         />
         <Routes>
         <Route element={<PrivateRoute />}> 

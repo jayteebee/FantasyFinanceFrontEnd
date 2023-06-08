@@ -62,6 +62,7 @@ export const updateUserInfo = async (userID, userData) => {
 // ** DELETE REQUESTS **
 
 export const deleteUser = async (userID) => {
+  try {
   const response = await axiosInstanceWithToken.delete(
     `/logout`
   );
@@ -69,6 +70,10 @@ export const deleteUser = async (userID) => {
   window.localStorage.removeItem("token");
   window.localStorage.removeItem("userID");
   return response.data;
+} catch (error) {
+  console.error(error);
+  throw error;
+}
 };
 
 // console.log("DELETED USER REQUEST:", deleteUser(76))

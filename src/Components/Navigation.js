@@ -5,11 +5,30 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Balance from "../Components/Funding/Balance";
+import { useNavigate } from "react-router-dom";
+import { deleteUser } from '../API/userAPI'
 
-const Navigation = ({ updatedBalance, setUpdatedBalance }) => {
+
+const Navigation = ({ updatedBalance, setUpdatedBalance, setShowRegister }) => {
+  const userID = window.localStorage.getItem("userID")
+
+  const navigate = useNavigate();
+
+
+  const logOut = async () => {
+    try {
+  await deleteUser(userID)
+  navigate("/login");
+  setUpdatedBalance((prevState) => !prevState);
+  setShowRegister(true)
+  } catch (error) {
+    console.error("Log out failed", error);
+  }
+};
+
   return (
     <div>
-      <Navbar bg="dark" variant="dark" expand="lg">
+    {userID ? (<Navbar bg="dark" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand>Fantasy Finance</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -43,12 +62,15 @@ const Navigation = ({ updatedBalance, setUpdatedBalance }) => {
                 <NavDropdown.Item href="/Profile">
                   Account Details
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/LogOut">Log Out</NavDropdown.Item>
-              </NavDropdown>
+
+                <NavDropdown.Item onClick={logOut} >Log Out</NavDropdown.Item>
+              
+                </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
+      </Navbar>) : null}
+      
     </div>
   );
 };
