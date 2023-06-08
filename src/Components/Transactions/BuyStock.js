@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-
+import Alert from 'react-bootstrap/Alert';
 import { createHolding } from "../../API/holdingAPI";
 import { timeSeriesIntraday } from "../../API/AlphaVantage/coreDataAPI";
 import { getAllUserInfo, updateUserInfo } from "../../API/userAPI";
 import Modal from "react-bootstrap/Modal";
+import { Row, Col } from "react-bootstrap";
+
 const BuyStock = ({
   overviewData,
   industryStocks,
@@ -74,6 +76,7 @@ const BuyStock = ({
     setBalance(newBalance);
     setUpdatingBalance(newBalance);
     setStockPurchased((prevState) => !prevState);
+    setAlertTog(true);
   };
 
   const updateBalance = async (userID, newBalance) => {
@@ -84,6 +87,13 @@ const BuyStock = ({
       balanceUpdate.balance
     );
   };
+
+  const [alertTog, setAlertTog] = useState(false)
+
+const alertToggle = () => {
+  setAlertTog(false)
+  setBuyModal(false)
+}
 
   return (
     <div className="modal show" style={{ display: "block" }}>
@@ -153,6 +163,24 @@ const BuyStock = ({
           </Modal.Dialog>
         </div>
       </div>
+
+      {alertTog ? (
+        <div style={{display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"}}>
+        <div className="p-5 ">
+        <Alert variant="primary" style={{display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"}} >
+      Succesfully opened a position with {overviewInfo.Name}, good luck! <br />
+      <Button variant="secondary" onClick={alertToggle}>Close</Button>
+    </Alert>
+    </div>
+    </div>
+    ) : null}
+      
     </div>
   );
 };

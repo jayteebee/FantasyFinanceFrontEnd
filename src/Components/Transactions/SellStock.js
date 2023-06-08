@@ -4,6 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import { createHolding } from "../../API/holdingAPI";
 import { timeSeriesIntraday } from "../../API/AlphaVantage/coreDataAPI";
 import { getAllUserInfo, updateUserInfo } from "../../API/userAPI";
+import Alert from 'react-bootstrap/Alert';
+
 
 const SellStock = ({
   overviewData,
@@ -75,6 +77,7 @@ const SellStock = ({
     setBalance(newBalance);
     setUpdatingBalance(newBalance);
     setStockPurchased((prevState) => !prevState);
+    setAlertTog(true);
   };
 
   const updateBalance = async (userID, newBalance) => {
@@ -85,6 +88,12 @@ const SellStock = ({
       balanceUpdate.balance
     );
   };
+
+  const [alertTog, setAlertTog] = useState(false)
+  const alertToggle = () => {
+    setAlertTog(false)
+    setSellModal(false)
+  }
 
   return (
     <div className="modal show" style={{ display: "block" }}>
@@ -141,7 +150,7 @@ const SellStock = ({
           </Button>
           {trade.quantity && trade.purchase_price && trade.stock_id ? (
             <Button variant="primary" onClick={confirmPosition}>
-              Confirm Position
+              Confirm Close
             </Button>
           ) : (
             <Button variant="success" onClick={openPosition}>
@@ -153,6 +162,26 @@ const SellStock = ({
       </Modal.Dialog>
       </div>
       </div>
+
+
+      {alertTog ? (
+        <div style={{display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"}}>
+        <div className="p-5 ">
+        <Alert variant="primary" style={{display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"}} >
+      Succesfully closed your position with {overviewInfo.Name}.<br />
+      <Button variant="secondary" onClick={alertToggle}>Close</Button>
+    </Alert>
+    </div>
+    </div>
+    ) : null}
+
+
     </div>
   );
 };
