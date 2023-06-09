@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
+import { deleteWatchlist } from "../../API/watchlistAPI";
 import {
   getAllUserWatchlists,
   getStocksFromWatchlist,
@@ -31,7 +32,7 @@ const FetchAllWatchlists = () => {
     getAllUserWatchlists(userID)
       .then((data) => setWatchlists(data))
       .catch((err) => console.log("API Call Failed", err));
-  }, []);
+  }, [watchlists]);
 
   const showWatchlistStocks = async (watchlist) => {
     const response = await getStocksFromWatchlist(userID, watchlist)
@@ -74,6 +75,11 @@ const FetchAllWatchlists = () => {
 
     setShowAnalysisData(true);
   };
+const deleteAWatchlist = async (userID, watchlistID) => {
+  debugger
+  console.log("watchlistID", watchlistID)
+await deleteWatchlist(userID, watchlistID)
+}
 
   return (
     <div>
@@ -85,16 +91,25 @@ const FetchAllWatchlists = () => {
               <div className="d-grid gap-3">
                 {watchlists ? (
                   watchlists.map((watchlist) => (
+                    
                     <div key={`watchlist-${watchlist.id}`}>
                       <Button
                         variant="outline-light"
                         size="sm"
                         onClick={() => {
+                          
                           showWatchlistStocks(watchlist.id);
                         }}
                       >
                         {watchlist.name}
                       </Button>
+
+                      <Button
+                      variant="danger"
+                        size="sm"
+                        
+                        onClick={() => deleteAWatchlist(userID, watchlist.id)}>
+                      Delete</Button>
                     </div>
                   ))
                 ) : (

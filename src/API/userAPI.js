@@ -42,7 +42,6 @@ export const logIn = async (logInData) => {
   if (!logInData) {
     return "Please enter a valid username and password";
   } else {
-    console.log("LOG IN DATA", logInData);
     const response = await axiosInstance.post("/login", { user: logInData });
     if (response.headers.authorization) {
       window.localStorage.setItem("token", response.headers.authorization);
@@ -87,3 +86,4 @@ export const deleteEntireProfile = async (userID) => {
   window.localStorage.removeItem("userID");
   return response.data;
 }
+
