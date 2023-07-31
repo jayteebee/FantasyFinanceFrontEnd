@@ -24,15 +24,16 @@ function App() {
     <div>
       <div className="background">
         <Navigation
-        setUpdatedBalance={setUpdatedBalance}
-            updatedBalance={updatedBalance}
-            setShowRegister={setShowRegister}
+          setUpdatedBalance={setUpdatedBalance}
+          updatedBalance={updatedBalance}
+          setShowRegister={setShowRegister}
         />
         <Routes>
-        <Route element={<PrivateRoute />}> 
-            <Route path="/" element={<Portfolio
-              stockPurchased={stockPurchased}
-              />} />
+          <Route element={<PrivateRoute />}>
+            <Route
+              path="/"
+              element={<Portfolio stockPurchased={stockPurchased} />}
+            />
             <Route
               path="/Holding"
               element={<Holding stockPurchased={stockPurchased} />}
@@ -53,17 +54,27 @@ function App() {
             <Route path="/Profile" element={<Profile />} />
 
             <Route path="/Watchlist" element={<Watchlist />} />
-            <Route path="/LogOut" element={<LogOut
-              setUpdatedBalance={setUpdatedBalance}
-              setShowRegister={setShowRegister}
-              showRegister={showRegister}
-              />} />
-         </Route>
+            <Route
+              path="/LogOut"
+              element={
+                <LogOut
+                  setUpdatedBalance={setUpdatedBalance}
+                  setShowRegister={setShowRegister}
+                  showRegister={showRegister}
+                />
+              }
+            />
+          </Route>
 
-          <Route path="/login" element={<SignUpSignIn
-            setShowRegister={setShowRegister}
-            showRegister={showRegister}
-            />} />
+          <Route
+            path="/login"
+            element={
+              <SignUpSignIn
+                setShowRegister={setShowRegister}
+                showRegister={showRegister}
+              />
+            }
+          />
         </Routes>
       </div>
     </div>
@@ -72,5 +83,4 @@ function App() {
 
 export default App;
 
-
-// 
+//

@@ -13,7 +13,9 @@ import {
 } from "mdb-react-ui-kit";
 
 const SignUpSignIn = ({ showRegister, setShowRegister }) => {
+
   const navigate = useNavigate();
+  
   // STATE
   const [input, setInput] = useState({
     name: "",

@@ -5,7 +5,8 @@ const axiosInstance = axios.create({
                 ? 'https://fantasy-finance-c6a108a05dfa.herokuapp.com/' 
                 : 'http://localhost:4000',
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
     },
 });
 
