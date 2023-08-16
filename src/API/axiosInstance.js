@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
                 : 'http://localhost:4000',
     headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        // 'Access-Control-Allow-Origin': '*'
     },
 });
 
