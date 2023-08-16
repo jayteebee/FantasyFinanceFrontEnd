@@ -30,7 +30,7 @@ export const createUser = async (userData) => {
   } else {
     console.log("USER DATA: ", userData);
     const response = await axiosInstance.post("/signup", { user: userData });
-    console.log("TOKEN: ", response.headers.authorization);
+    // console.log("TOKEN: ", response.headers.authorization);
     if (response.headers.authorization) {
       window.localStorage.setItem("token", response.headers.authorization);
     }
