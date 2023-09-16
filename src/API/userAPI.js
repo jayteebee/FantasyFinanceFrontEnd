@@ -22,7 +22,7 @@ export const currentUser = async () => {
 
 // console.log("CURRENT USER: ", currentUser());
 
-// ** POST REQUESTS **
+// ** POST REQUESTS ***
 
 export const createUser = async (userData) => {
   if (!userData) {
